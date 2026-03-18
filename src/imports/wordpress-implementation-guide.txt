@@ -1,0 +1,245 @@
+=====================================================================
+WORDPRESS IMPLEMENTATION GUIDE — Verkeersschool Beckers
+=====================================================================
+
+This document explains how to implement the Verkeersschool Beckers
+website design in WordPress.
+
+=====================================================================
+1. RECOMMENDED SETUP
+=====================================================================
+
+Theme: Astra Pro or GeneratePress Premium
+  - Lightweight, fast, and highly customizable
+  - Excellent compatibility with page builders
+  - Built-in header/footer builder
+
+Page Builder: Elementor Pro (recommended) or Gutenberg with
+  Spectra/Kadence Blocks
+  - Elementor Pro gives the most visual control
+  - Gutenberg is simpler for non-technical users
+
+Hosting: A quality WordPress host like:
+  - Starter: Siteground, Starter
+  - Better: Cloudways or Kinsta for speed
+
+=====================================================================
+2. FONTS — ZEITUNG PRO EXTRABOLD
+=====================================================================
+
+Option A: Upload Zeitung Pro font files
+  1. Purchase Zeitung Pro from a type foundry
+  2. Upload .woff2 files via Elementor > Custom Fonts
+  3. Or use a plugin like "Custom Fonts" by Starter Templates
+  4. Set as Primary heading font in theme settings
+
+Option B: Fallback with Plus Jakarta Sans (free)
+  - Very similar weight/style
+  - Available in Google Fonts
+  - Easy to set up in any page builder
+
+Typography hierarchy:
+  - H1: Zeitung Pro Extrabold, 48-60px
+  - H2: Zeitung Pro Extrabold, 36-44px
+  - H3: Zeitung Pro Bold, 20-24px
+  - Body: Inter, 16px, weight 400
+  - Labels/badges: Inter, 14px, weight 600
+  - Small text: Inter, 13-14px, weight 400
+
+=====================================================================
+3. COLOR SYSTEM
+=====================================================================
+
+Primary Blue:  #0B3D91
+Dark Blue:     #082E6E / #051A44
+Orange CTA:    #F5A623
+Orange Hover:  #E6951A
+White:         #FFFFFF
+Gray BG:       #F9FAFB
+Dark footer:   #0A0A1A
+Text dark:     #111827 (gray-900)
+Text medium:   #6B7280 (gray-500)
+Text light:    #9CA3AF (gray-400)
+
+Set these as Global Colors in Elementor > Site Settings > Colors.
+This makes it easy to change them later across the entire site.
+
+=====================================================================
+4. SECTION-BY-SECTION IMPLEMENTATION
+=====================================================================
+
+HEADER (Sticky)
+  - Use Astra/GP header builder or Elementor Header template
+  - Logo left, nav center, CTA button right
+  - Sticky behavior: enable in theme settings
+  - Mobile: hamburger menu with slide-in panel
+  - CTA button: orange, rounded-full, links to #proefles
+
+HERO SECTION
+  - Elementor Section with gradient background
+  - 2-column layout: text left, image right
+  - Heading: H1 with Zeitung Pro Extrabold
+  - Orange "rijbewijs" text color via inline style
+  - Floating cards: absolute positioned inner sections
+  - Trust badges below CTA buttons
+  - Bottom wave: SVG shape divider (Elementor built-in)
+
+LESSON CARDS (Welke rijles past bij jou?)
+  - 6 cards in 3-column grid
+  - Each card links to a popup (Elementor Popup)
+  - Create 6 Elementor popups with service details
+  - Trigger each popup on card click
+  - Popup content: description + pricing table
+  - Mobile: popups become full-screen bottom sheets
+
+WHY BECKERS
+  - 6 benefit items in 3-column grid
+  - Icon + heading + description per item
+  - Icons: use Elementor icon widget or SVG
+  - Center-aligned text blocks
+
+JOURNEY SECTION
+  - 3-column card layout
+  - Each card: icon, title, subtitle, description, bullet list
+  - Use Elementor Inner Section for card structure
+
+ABOUT SECTION
+  - 2-column layout: image left, text right
+  - Image with rounded corners + shadow
+  - Floating badge: absolute positioned with blue gradient
+  - Bullet list with orange check icons
+  - CTA button at bottom
+
+HOW IT WORKS
+  - 4-column layout with numbered steps
+  - Connecting line between steps (use a border or SVG)
+  - Number boxes: blue gradient, rounded
+
+LOCATIONS
+  - 2-part layout: visual map area + location grid
+  - Map area: stylized illustration (not Google Maps)
+  - Use dots with hover tooltips for location names
+  - Location grid: 2-column grid of location pills
+  - Zaltbommel highlighted as main location
+
+TESTIMONIALS
+  - Blue gradient background section
+  - 3-column card grid
+  - Each card: stars, quote, name, age
+  - Cards: semi-transparent white background
+
+PRICING (Tarieven)
+  - 3 package cards in a row (main section)
+  - Quick price bar below
+  - "Alle tarieven bekijken" button opens popup
+  - Popup: tabbed interface with 5 tabs
+  - Implementation: Elementor Popup + Tabs widget
+  - Tab content: pricing tables per category
+
+FAQ
+  - Accordion/toggle widget in Elementor
+  - Centered, max-width container
+  - Smooth open/close animation
+
+FINAL CTA
+  - Blue gradient background
+  - Contact form (use WPForms or Contact Form 7)
+  - Phone + WhatsApp buttons below form
+
+FOOTER
+  - 4-column layout: logo, links, contact, hours
+  - Dark background (#0A0A1A)
+  - Social icons with hover effects
+  - Legal links in bottom bar
+
+=====================================================================
+5. ANIMATIONS
+=====================================================================
+
+Use one of these methods:
+
+Option A: Elementor Motion Effects (built-in)
+  - Entrance animations: Fade In Up
+  - Set animation delay for staggered effect
+  - Duration: 600-800ms
+
+Option B: Plugin — "Starter Templates - Starter Sites" has
+  built-in scroll animations
+
+Option C: Custom CSS/JS for advanced animations
+  - Add IntersectionObserver-based reveal
+  - Use CSS transitions with transform + opacity
+  - Add to Elementor > Custom Code or child theme
+
+Recommended animation settings:
+  - Sections: Fade In Up, 700ms, ease-out
+  - Cards: Fade In Up with 80-120ms stagger
+  - Buttons: hover translate-y -2px, 300ms
+  - Cards: hover translate-y -4px + shadow increase
+
+=====================================================================
+6. FORMS
+=====================================================================
+
+Recommended plugin: WPForms Lite (free) or Gravity Forms
+  - Create "Proefles aanvragen" form
+  - Fields: Voornaam, Achternaam, E-mail, Telefoonnummer
+  - Send to owner email
+  - Auto-reply confirmation to student
+  - Style form to match blue/white theme
+
+=====================================================================
+7. PLUGINS NEEDED
+=====================================================================
+
+Essential:
+  - Elementor Pro (page builder)
+  - WPForms or Contact Form 7 (forms)
+  - Yoast SEO or RankMath (SEO)
+  - WP Rocket or LiteSpeed Cache (performance)
+  - Smush or ShortPixel (image optimization)
+  - UpdraftPlus (backups)
+
+Optional but recommended:
+  - Custom Fonts (for Zeitung Pro upload)
+  - Starter Templates (for animations)
+  - WP Mail SMTP (reliable email delivery)
+  - Cookie Notice (GDPR compliance)
+
+=====================================================================
+8. PERFORMANCE
+=====================================================================
+
+  - Optimize all images before upload (WebP format)
+  - Use lazy loading for below-fold images
+  - Minimize plugins (keep under 15)
+  - Enable caching with WP Rocket
+  - Use CDN (Cloudflare free tier)
+  - Target: PageSpeed score 85+
+
+=====================================================================
+9. SEO BASICS
+=====================================================================
+
+  - Title: Verkeersschool Beckers | Rijlessen in Zaltbommel
+  - Meta: Autorijlessen in de Bommelerwaard. Persoonlijke
+    begeleiding, flexibele lestijden, hoge slagingskans.
+  - H1: One per page, main headline
+  - Alt text on all images
+  - Internal linking between sections
+  - Schema markup: LocalBusiness
+  - Google My Business listing
+
+=====================================================================
+10. MOBILE OPTIMIZATION
+=====================================================================
+
+  - Test every section on mobile breakpoints
+  - Stack columns vertically on mobile
+  - Reduce heading sizes on mobile
+  - Make buttons full-width on mobile
+  - Ensure tap targets are 48px+ minimum
+  - Test popup/modal experience on mobile
+  - Hide decorative elements on small screens
+
+=====================================================================

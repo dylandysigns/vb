@@ -1,0 +1,314 @@
+=====================================================================
+WORDPRESS EDITING GUIDE — Verkeersschool Beckers
+How to edit and manage your website in WordPress
+=====================================================================
+
+This guide explains how to edit every part of the Verkeersschool
+Beckers website after it has been built in WordPress.
+
+=====================================================================
+1. LOGGING IN
+=====================================================================
+
+Go to: www.jouwdomein.nl/wp-admin
+Enter your username and password.
+You will see the WordPress Dashboard.
+
+To edit the homepage:
+  - Go to Pages > Homepage
+  - Click "Edit with Elementor" (blue button)
+  - The visual editor will open
+
+=====================================================================
+2. EDITING TEXT
+=====================================================================
+
+In Elementor:
+  1. Click on any text element on the page
+  2. The text editor panel opens on the left
+  3. Edit the text directly
+  4. Click "Update" (green button, bottom left) to save
+
+Tips:
+  - Headings and body text are separate elements
+  - Don't change font settings unless needed
+  - Keep headings short and clear
+  - Always click "Update" after making changes
+
+=====================================================================
+3. EDITING IMAGES
+=====================================================================
+
+In Elementor:
+  1. Click on the image you want to change
+  2. In the left panel, click "Choose Image"
+  3. Upload a new image or select from Media Library
+  4. Click "Insert Media"
+  5. Click "Update" to save
+
+Image guidelines:
+  - Hero image: at least 1200x800px, landscape
+  - About image: at least 800x600px
+  - Keep images under 200KB (compress first)
+  - Use WebP format when possible
+  - Always add Alt Text for SEO
+
+=====================================================================
+4. EDITING THE HEADER & NAVIGATION
+=====================================================================
+
+Method depends on your setup:
+
+If using Astra/GP header builder:
+  - Go to Appearance > Customize > Header Builder
+  - Edit logo, menu items, and CTA button
+  - Save & Publish
+
+If using Elementor Header template:
+  - Go to Templates > Theme Builder > Header
+  - Click "Edit with Elementor"
+  - Change logo, navigation links, or CTA button text
+  - Click "Update"
+
+To change navigation links:
+  - Go to Appearance > Menus
+  - Add, remove, or reorder menu items
+  - Save Menu
+
+=====================================================================
+5. EDITING LESSON CARDS (Welke rijles past bij jou?)
+=====================================================================
+
+Each card is an Elementor widget:
+  1. Open the homepage in Elementor
+  2. Scroll to the "Welke rijles past bij jou?" section
+  3. Click on a card to select it
+  4. Edit the icon, title, and description in the left panel
+
+To edit the popup/modal content:
+  1. Go to Templates > Popups in WordPress admin
+  2. Find the popup for the service you want to edit
+     (e.g., "Autorijlessen Popup")
+  3. Click "Edit with Elementor"
+  4. Change the text, pricing, or details
+  5. Click "Update"
+
+To add or remove a card:
+  - Duplicate an existing card (right-click > Duplicate)
+  - Edit the new card's content
+  - Create a matching popup if needed
+  - Link the card to the new popup
+
+=====================================================================
+6. EDITING PRICING CARDS
+=====================================================================
+
+Front-facing pricing cards:
+  1. Open homepage in Elementor
+  2. Scroll to "Tarieven" section
+  3. Click on a pricing card
+  4. Edit: package name, price, description, features
+  5. To change the "Meest gekozen" badge, edit the label text
+
+Quick prices bar:
+  - Click on the bar below the cards
+  - Edit the price labels and amounts
+  - The "Alle tarieven bekijken" button links to the popup
+
+=====================================================================
+7. EDITING PRICING MODAL (POPUP WITH TABS)
+=====================================================================
+
+  1. Go to Templates > Popups
+  2. Find "Tarieven Popup" or "Alle Tarieven"
+  3. Click "Edit with Elementor"
+  4. The popup contains a Tabs widget with 5 tabs:
+     - Rijlessen
+     - Pakketten
+     - Examens
+     - Aanhanger BE
+     - Theorie
+  5. Click on a tab to edit its content
+  6. Each tab contains a pricing table
+  7. Edit the service names and prices
+  8. Click "Update" when done
+
+To add a new pricing item:
+  - Inside the active tab, duplicate a row
+  - Edit the new row with the correct info
+
+To add a new tab:
+  - Click on the Tabs widget
+  - In settings, add a new tab
+  - Add pricing content inside
+
+=====================================================================
+8. EDITING LOCATIONS
+=====================================================================
+
+Location list:
+  1. Open homepage in Elementor
+  2. Scroll to "Leslocaties" section
+  3. Each location is a separate element
+  4. Click on a location to edit the name
+  5. To add a location: duplicate an existing one and rename
+  6. To remove: right-click > Delete
+
+Visual map area:
+  - The map illustration has positioned dots
+  - Each dot has a hover label
+  - To move a dot, adjust its position in Advanced > Positioning
+  - To add a dot, duplicate an existing one and reposition
+
+=====================================================================
+9. EDITING TESTIMONIALS / REVIEWS
+=====================================================================
+
+  1. Open homepage in Elementor
+  2. Scroll to "Reviews" section
+  3. Click on a review card
+  4. Edit: name, age, quote text, initials
+  5. To add a review: duplicate a card, edit content
+  6. To remove: right-click > Delete
+
+Keep reviews realistic and relevant.
+Use first names + age for authenticity.
+
+=====================================================================
+10. EDITING FAQ
+=====================================================================
+
+  1. Open homepage in Elementor
+  2. Scroll to "Veelgestelde vragen"
+  3. Click on the Accordion/Toggle widget
+  4. In the left panel, each FAQ item is listed
+  5. Click on an item to edit question + answer
+  6. To add: click "+ Add Item"
+  7. To remove: click the X next to an item
+  8. To reorder: drag items up or down
+
+=====================================================================
+11. EDITING THE CONTACT FORM
+=====================================================================
+
+The form is built with WPForms or Contact Form 7.
+
+To edit form fields:
+  1. Go to WPForms > All Forms (or Contact > Contact Forms)
+  2. Click on "Proefles Aanvragen" form
+  3. Edit fields, labels, or add new fields
+  4. Save
+
+To change the email recipient:
+  1. In WPForms: Settings > Notifications
+  2. Change "Send To Email Address"
+  3. Save
+
+To change the confirmation message:
+  1. In WPForms: Settings > Confirmations
+  2. Edit the message shown after submission
+  3. Save
+
+=====================================================================
+12. EDITING THE FOOTER
+=====================================================================
+
+If using Elementor Footer template:
+  1. Go to Templates > Theme Builder > Footer
+  2. Click "Edit with Elementor"
+  3. Edit contact details, opening hours, links
+  4. Click "Update"
+
+If using theme footer:
+  - Appearance > Customize > Footer Builder
+  - Edit widgets and content
+
+To update social media links:
+  - Click on the social icon
+  - Change the URL in the left panel
+
+To update opening hours:
+  - Click on the hours text
+  - Edit directly
+
+=====================================================================
+13. EDITING ANIMATIONS
+=====================================================================
+
+In Elementor:
+  1. Select any section or widget
+  2. Go to Advanced tab > Motion Effects
+  3. Entrance Animation: choose type (Fade In Up, etc.)
+  4. Animation Duration: 600-800ms recommended
+  5. Animation Delay: use to create stagger effects
+
+To disable animations:
+  - Set Entrance Animation to "None"
+
+To slow down animations:
+  - Increase Animation Duration
+
+=====================================================================
+14. GENERAL TIPS
+=====================================================================
+
+Always after editing:
+  - Click "Update" to save changes
+  - Preview the page on mobile (Responsive Mode icon)
+  - Check that nothing looks broken
+
+Before making big changes:
+  - Create a backup (UpdraftPlus > Backup Now)
+  - Or use Elementor's revision history
+
+Image tips:
+  - Compress images before uploading
+  - Use consistent image sizes
+  - Add Alt Text for SEO
+
+Content tips:
+  - Keep text concise and clear
+  - Use action-oriented CTA text
+  - Keep pricing up to date
+  - Update reviews periodically
+
+=====================================================================
+15. COMMON TASKS QUICK REFERENCE
+=====================================================================
+
+Change a price:
+  Homepage > Tarieven section > Click price > Edit > Update
+
+Add a review:
+  Homepage > Reviews section > Duplicate card > Edit > Update
+
+Change phone number:
+  Footer > Contact section > Edit number > Update
+  Also update in: Header CTA, Final CTA section, WPForms
+
+Add a location:
+  Homepage > Locaties section > Duplicate location > Edit > Update
+
+Change the proefles price:
+  Update in ALL places: Lesson Cards popup, Pricing modal,
+  CTA section note, FAQ answers
+
+Change opening hours:
+  Footer > Openingstijden > Edit text > Update
+
+=====================================================================
+16. GETTING HELP
+=====================================================================
+
+If you're stuck:
+  - Check WordPress documentation: wordpress.org/documentation
+  - Elementor tutorials: elementor.com/academy
+  - Or contact your web developer
+
+Regular maintenance:
+  - Update WordPress, theme, and plugins monthly
+  - Check and reply to form submissions
+  - Monitor Google Search Console
+  - Keep backups running (weekly minimum)
+
+=====================================================================

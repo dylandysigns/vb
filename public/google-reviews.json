@@ -1,0 +1,82 @@
+{
+  "rating": "5.0",
+  "count": 13,
+  "profileUrl": "https://www.google.com/search?sca_esv=9a0f969563c68435&sxsrf=ANbL-n4WfQNzSqwTN-LiAukKH8EABJaA1Q:1773861541145&q=Verkeersschool+Beckers+Zaltbommel+reviews&si=AL3DRZHrmvnFAVQPOO2Bzhf8AX9KZZ6raUI_dT7DG_z0kV2_x8Ju2fivqIn1EOdZs7MQk8Or7dcQpKj2rLKFasRxrMkphYX4NRuEjV-X3qxsU4lOTMT2bKM%3D&uds=ALYpb_nym6KF0x8SxdKYIKb0xuW-mbLWCKZxXKwpwFd9a-gFwIqBTKf23uVT3p6er2E34pQ_q1vthy27O1VWEYYtsoU3ctB17z6QFvINfBqtAl-yG499EddoKS3zL9SrZlGTW8G06Ndx&sa=X&ved=2ahUKEwjNtKmYlaqTAxW2wAIHHdExNKAQ3PALegQIKhAF&biw=1512&bih=828&dpr=2",
+  "featuredReview": {
+    "quote": "Bij Rijschool Beckers in een keer geslaagd voor mijn motor rijbewijs. Erg fijne lessen en goede instructies.",
+    "author": "kenpetgam perers",
+    "label": "Google review"
+  },
+  "reviews": [
+    {
+      "name": "kenpetgam perers",
+      "text": "Bij Rijschool Beckers in een keer geslaagd voor mijn motor rijbewijs. Erg fijne lessen en goede instructies. Danny leert je niet alleen een examen te halen maar ook hoe je echt motor moet rijden. Bedankt!",
+      "rating": 5,
+      "initials": "KP",
+      "published": "9 maanden geleden"
+    },
+    {
+      "name": "Arie Koster",
+      "text": "Tijdje terug gelest en in 1x geslaagd. Hele aardige en vooral duidelijke instructeur, iets wat ik nodig had. Alles word elke les goed uitgelegd waaronder wat er beter kan en waar op te letten. Toppie!",
+      "rating": 5,
+      "initials": "AK",
+      "published": "1 jaar geleden"
+    },
+    {
+      "name": "Fam Loukili",
+      "text": "Super goede, professionele en fijne rijschool! Ik heb hier altijd met alle plezier gelest. De lessen worden zorgvuldig uitgelegd en je wordt goed voorbereid op het praktijkexamen. Zeker een aanrader dus! (Groet, Nissrine).",
+      "rating": 5,
+      "initials": "FL",
+      "published": "1 jaar geleden"
+    },
+    {
+      "name": "Mark Koenis",
+      "text": "Fijne rijschool, goede instructeurs. Het is een gezellig familiebedrijf waarin pa met zijn zonen de rijlessen op hoog niveau verzorgt. Ik ben in 1 keer geslaagd, maar dat kan iedereen met de hulp van deze toppers. Zoek je een rijschool in de omgeving van Zaltbommel, dan is dit zeker een aanrader!",
+      "rating": 5,
+      "initials": "MK",
+      "published": "2 jaar geleden"
+    },
+    {
+      "name": "Bjorn",
+      "text": "Instructeur (Danny) is een zeer fijne persoonlijkheid. Rustig, geduldig en geeft goede feedback.",
+      "rating": 5,
+      "initials": "BJ",
+      "published": "2 jaar geleden"
+    },
+    {
+      "name": "Raoul Verharen",
+      "text": "Geen beschrijving",
+      "rating": 5,
+      "initials": "RV",
+      "published": "2 jaar geleden"
+    },
+    {
+      "name": "Feike Goudsmit",
+      "text": "Uitstekende rijschool! Danny Beckers komt zijn afspraken na, legt heel goed uit, is kritisch maar opbouwend, blijft altijd rustig en geeft je veel vertrouwen. Door zijn toewijding de motorrijexamens (AVB en AVD) in 1 keer gehaald. Ik beveel hem van harte aan.",
+      "rating": 5,
+      "initials": "FG",
+      "published": "4 jaar geleden"
+    },
+    {
+      "name": "Dennis Opijnen",
+      "text": "In alle rust ons motor rijbewijs gehaald vorig jaar. Goede duidelijke instructeur.",
+      "rating": 5,
+      "initials": "DO",
+      "published": "4 jaar geleden"
+    },
+    {
+      "name": "Fleur De Vaan",
+      "text": "Geen beschrijving",
+      "rating": 5,
+      "initials": "FV",
+      "published": "5 jaar geleden"
+    },
+    {
+      "name": "kevin beckers",
+      "text": "Geen beschrijving",
+      "rating": 5,
+      "initials": "KB",
+      "published": "6 jaar geleden"
+    }
+  ]
+}
