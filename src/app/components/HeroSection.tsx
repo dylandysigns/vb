@@ -172,8 +172,8 @@ export function HeroSection() {
       </div>
 
       {/* Bottom wave */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 60" fill="none" className="w-full h-auto">
+      <div className="absolute bottom-[-1px] left-0 right-0 pointer-events-none">
+        <svg viewBox="0 0 1440 60" fill="none" className="block w-full h-auto">
           <path d="M0 60V30C240 10 480 0 720 10C960 20 1200 40 1440 30V60H0Z" fill="#f9fafb" />
         </svg>
       </div>
