@@ -38,7 +38,7 @@ export function Footer() {
             <div className="sm:col-span-2 lg:col-span-1">
               <img src={logo} alt="Verkeersschool Beckers" className="h-11 w-auto mb-5 brightness-0 invert" />
               <p className="text-gray-500 text-sm leading-relaxed mb-6" style={{ fontFamily: body, fontWeight: 400 }}>
-                Verkeersschool Beckers — een familiebedrijf sinds 2007. Jouw partner voor betrouwbare en persoonlijke rijlessen in de Bommelerwaard.
+                Verkeersschool Beckers — een familiebedrijf sinds 2007. Jouw partner voor betrouwbare en persoonlijke rijlessen in Zaltbommel en omstreken.
               </p>
               <div className="flex gap-3">
                 {[
@@ -83,7 +83,7 @@ export function Footer() {
               <ul className="space-y-4">
                 <li className="flex items-start gap-3 text-gray-500 text-sm">
                   <MapPin className="w-4 h-4 mt-0.5 text-[#FD9F26] flex-shrink-0" />
-                  <span style={{ fontFamily: body }}>Zaltbommel en omgeving<br />Bommelerwaard</span>
+                  <span style={{ fontFamily: body }}>Zaltbommel</span>
                 </li>
                 <li className="flex items-start gap-3 text-gray-500 text-sm">
                   <Phone className="w-4 h-4 mt-0.5 text-[#FD9F26] flex-shrink-0" />
@@ -104,9 +104,8 @@ export function Footer() {
               <h4 className="mb-5" style={{ fontFamily: heading, fontWeight: 700, fontSize: "0.95rem" }}>Openingstijden</h4>
               <ul className="space-y-3.5 text-sm">
                 {[
-                  { days: "Maandag - Vrijdag", hours: "08:00 - 20:00" },
-                  { days: "Zaterdag", hours: "09:00 - 17:00" },
-                  { days: "Zondag", hours: "Gesloten" },
+                  { days: "Maandag t/m donderdag", hours: "08:00 - 16:30 en 18:00 - 20:00" },
+                  { days: "Vrijdag", hours: "08:00 - 13:30" },
                 ].map((schedule) => (
                   <li key={schedule.days} className="flex items-start gap-3">
                     <Clock className="w-4 h-4 mt-0.5 text-[#FD9F26] flex-shrink-0" />

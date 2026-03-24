@@ -1,14 +1,25 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Phone, MessageCircle, Package, X } from "lucide-react";
 import { ScrollReveal } from "./ScrollReveal";
 import { usePackage } from "./PackageContext";
 
 const heading = "'zeitung', 'Inter', sans-serif";
 const body = "'zeitung', 'Inter', sans-serif";
+const web3formsEndpoint = "https://api.web3forms.com/submit";
+const web3formsAccessKey = "9180f8ee-c044-4680-8284-2c4f31aab1f0";
 
 export function FinalCTA() {
   const { selectedPackage, setSelectedPackage } = usePackage();
   const packageRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitState, setSubmitState] = useState<{
+    type: "idle" | "success" | "error";
+    message: string;
+  }>({
+    type: "idle",
+    message: "",
+  });
 
   // Flash the package badge when it changes
   useEffect(() => {
@@ -18,6 +29,65 @@ export function FinalCTA() {
       packageRef.current.classList.add("cta-flash");
     }
   }, [selectedPackage]);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const firstName = String(formData.get("firstName") || "").trim();
+    const lastName = String(formData.get("lastName") || "").trim();
+    const email = String(formData.get("email") || "").trim();
+    const phone = String(formData.get("phone") || "").trim();
+    const city = String(formData.get("city") || "").trim();
+    const selectedPackageValue = String(formData.get("selectedPackage") || "").trim();
+    const message = String(formData.get("message") || "").trim();
+
+    setIsSubmitting(true);
+    setSubmitState({ type: "idle", message: "" });
+
+    try {
+      formData.set("access_key", web3formsAccessKey);
+      formData.set("subject", "Nieuwe aanvraag via Verkeersschool Beckers");
+      formData.set("from_name", "Verkeersschool Beckers website");
+      formData.set("botcheck", "");
+      formData.set("name", `${firstName} ${lastName}`.trim());
+      formData.set("phone", phone);
+      formData.set("city", city);
+      formData.set("selectedPackage", selectedPackageValue);
+      formData.set("message", message || "Geen extra bericht ingevuld.");
+
+      const response = await fetch(web3formsEndpoint, {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json().catch(() => null);
+
+      if (!response.ok || !data?.success) {
+        setSubmitState({
+          type: "error",
+          message: "Er ging iets mis bij het verzenden. Probeer het opnieuw.",
+        });
+        return;
+      }
+
+      form.reset();
+      setSelectedPackage(null);
+      setSubmitState({
+        type: "success",
+        message: "Bedankt, je aanvraag is succesvol verzonden. We nemen zo snel mogelijk contact met je op.",
+      });
+      formRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    } catch (error) {
+      setSubmitState({
+        type: "error",
+        message: "Verzenden lukt nu niet. Controleer later opnieuw of neem telefonisch contact op.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section
@@ -83,17 +153,47 @@ export function FinalCTA() {
               </p>
             )}
 
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+            {submitState.type !== "idle" && (
+              <div
+                className={`mb-6 rounded-2xl border px-4 py-3 text-left ${
+                  submitState.type === "success"
+                    ? "border-green-300/60 bg-green-500 text-white shadow-lg shadow-green-900/20"
+                    : "border-red-400/30 bg-red-500/15 text-white"
+                }`}
+              >
+                <p style={{ fontFamily: body, fontWeight: 600, fontSize: "0.95rem" }}>
+                  {submitState.type === "success" ? "Aanvraag succesvol verzonden" : "Verzenden mislukt"}
+                </p>
+                <p className="mt-1 text-sm text-white/80" style={{ fontFamily: body }}>
+                  {submitState.message}
+                </p>
+              </div>
+            )}
+
+            <form ref={formRef} className="space-y-4" onSubmit={handleSubmit}>
+              <input
+                type="checkbox"
+                name="botcheck"
+                tabIndex={-1}
+                autoComplete="off"
+                className="hidden"
+                aria-hidden="true"
+              />
+
               <div className="grid sm:grid-cols-2 gap-4">
                 <input
                   type="text"
+                  name="firstName"
                   placeholder="Voornaam"
+                  required
                   className="w-full px-5 py-3.5 bg-white/8 border border-white/15 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#FD9F26] focus:bg-white/12 transition-all duration-300"
                   style={{ fontFamily: body }}
                 />
                 <input
                   type="text"
+                  name="lastName"
                   placeholder="Achternaam"
+                  required
                   className="w-full px-5 py-3.5 bg-white/8 border border-white/15 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#FD9F26] focus:bg-white/12 transition-all duration-300"
                   style={{ fontFamily: body }}
                 />
@@ -101,32 +201,33 @@ export function FinalCTA() {
               <div className="grid sm:grid-cols-2 gap-4">
                 <input
                   type="email"
+                  name="email"
                   placeholder="E-mailadres"
+                  required
                   className="w-full px-5 py-3.5 bg-white/8 border border-white/15 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#FD9F26] focus:bg-white/12 transition-all duration-300"
                   style={{ fontFamily: body }}
                 />
                 <input
                   type="tel"
+                  name="phone"
                   placeholder="Telefoonnummer"
+                  required
                   className="w-full px-5 py-3.5 bg-white/8 border border-white/15 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#FD9F26] focus:bg-white/12 transition-all duration-300"
                   style={{ fontFamily: body }}
                 />
               </div>
               <input
                 type="text"
+                name="city"
                 placeholder="Woonplaats"
                 className="w-full px-5 py-3.5 bg-white/8 border border-white/15 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#FD9F26] focus:bg-white/12 transition-all duration-300"
                 style={{ fontFamily: body }}
               />
 
-              {/* Hidden field for selected package */}
-              {selectedPackage && (
-                <input type="hidden" name="selected_package" value={selectedPackage} />
-              )}
-
               {/* Visible package selection in form */}
               <div className="relative">
                 <select
+                  name="selectedPackage"
                   value={selectedPackage || ""}
                   onChange={(e) => setSelectedPackage(e.target.value || null)}
                   className="w-full px-5 py-3.5 bg-white/8 border border-white/15 rounded-xl text-white focus:outline-none focus:border-[#FD9F26] focus:bg-white/12 transition-all duration-300 appearance-none cursor-pointer"
@@ -136,6 +237,7 @@ export function FinalCTA() {
                   <option value="30 Uur Pakket (€ 2.580,-)" className="text-gray-900">30 Uur Pakket — € 2.580,-</option>
                   <option value="35 Uur Pakket (€ 2.925,-)" className="text-gray-900">35 Uur Pakket — € 2.925,-</option>
                   <option value="40 Uur Pakket (€ 3.270,-)" className="text-gray-900">40 Uur Pakket — € 3.270,-</option>
+                  <option value="Aanhanger Dagcursus (€ 700,-)" className="text-gray-900">Aanhanger Dagcursus — € 700,-</option>
                   <option value="Proefles + Advies (€ 60,-)" className="text-gray-900">Proefles + Advies — € 60,-</option>
                   <option value="Losse Rijles 60 min. (€ 70,-)" className="text-gray-900">Losse Rijles 60 min. — € 70,-</option>
                   <option value="Losse Rijles 90 min. (€ 105,-)" className="text-gray-900">Losse Rijles 90 min. — € 105,-</option>
@@ -149,6 +251,7 @@ export function FinalCTA() {
 
               {/* Text area for message */}
               <textarea
+                name="message"
                 placeholder="Heb je een vraag of opmerking? Laat het hier weten (optioneel)"
                 rows={3}
                 className="w-full px-5 py-3.5 bg-white/8 border border-white/15 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#FD9F26] focus:bg-white/12 transition-all duration-300 resize-none"
@@ -157,10 +260,11 @@ export function FinalCTA() {
 
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="w-full py-4 bg-gradient-to-r from-[#FD9F26] to-[#FD9F26] hover:from-[#FD9F26] hover:to-[#FD9F26] text-white rounded-xl transition-all duration-300 shadow-lg shadow-[#FD9F26]/20 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
                 style={{ fontFamily: body, fontWeight: 700 }}
               >
-                {selectedPackage ? "Aanvraag versturen" : "Proefles aanvragen"}
+                {isSubmitting ? "Bezig met verzenden..." : selectedPackage ? "Aanvraag versturen" : "Proefles aanvragen"}
               </button>
             </form>
             <p className="text-white/30 text-xs mt-4" style={{ fontFamily: body }}>

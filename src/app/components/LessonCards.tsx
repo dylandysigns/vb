@@ -55,7 +55,7 @@ const lessons: Lesson[] = [
       "Wij bieden een efficiënte dagcursus aan: 6 uur les plus het praktijkexamen, allemaal op dezelfde dag. Zo heb je in één dag je BE-rijbewijs in handen.",
       "Heb je meer oefentijd nodig? Extra lessen zijn altijd mogelijk. Wij stemmen het traject af op jouw ervaring en wensen.",
     ],
-    modalHighlights: ["Dagcursus (6 uur + examen)", "Les en examen op één dag", "Max. 3500 kg aanhanger", "Extra lessen mogelijk", "Snel je BE-rijbewijs", "Persoonlijke begeleiding"],
+    modalHighlights: ["Dagcursus (6 uur + examen)", "Les en examen op een dag", "Max. 3500 kg aanhanger", "Extra lessen mogelijk", "Snel je BE-rijbewijs", "Praktische begeleiding"],
     pricingTabId: "aanhanger",
     pricingTabLabel: "Bekijk aanhanger tarieven",
   },
@@ -90,7 +90,7 @@ export function LessonCards() {
                 className="text-3xl sm:text-4xl lg:text-[2.75rem] text-gray-900 mb-5 tracking-tight"
                 style={{ fontFamily: heading, fontWeight: 800 }}
               >
-                Welke opleiding past bij jou?
+                Welke rijopleiding heb jij nodig?
               </h2>
               <p className="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed" style={{ fontFamily: body, fontWeight: 400 }}>
                 Wij bieden twee opleidingen aan: autorijlessen (rijbewijs B) en aanhangerrijlessen (rijbewijs BE). Klik op een opleiding voor meer informatie.

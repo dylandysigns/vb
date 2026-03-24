@@ -1,4 +1,4 @@
-import { Heart, Clock, Car, TrendingUp, UserCheck, Smartphone } from "lucide-react";
+import { Heart, Clock, Car, UserCheck, Smartphone } from "lucide-react";
 import { ScrollReveal } from "./ScrollReveal";
 
 const heading = "'zeitung', 'Inter', sans-serif";
@@ -18,17 +18,12 @@ const benefits = [
   {
     icon: Clock,
     title: "Flexibele lestijden",
-    description: "Lessen op doordeweekse dagen, 's avonds of op zaterdag. Jij kiest wat het beste uitkomt.",
+    description: "Onze lestijden zijn ma t/m do 8:00-16:30 en 18:00-20:00 en vrijdag 8:00-13:30.",
   },
   {
     icon: Car,
     title: "Moderne lesauto (schakel)",
     description: "Leer rijden in een comfortabele, moderne lesauto met schakelbak en de nieuwste veiligheidsvoorzieningen.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Hoge slagingskans",
-    description: "Dankzij onze gestructureerde, opbouwende aanpak behalen onze leerlingen een bovengemiddeld slagingspercentage.",
   },
   {
     icon: Smartphone,
@@ -66,9 +61,11 @@ export function WhyBeckers() {
             const Icon = benefit.icon;
             return (
               <ScrollReveal key={benefit.title} delay={i * 80}>
-                <div className="text-center group">
+                <div className="text-center group flex h-full flex-col items-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-[#1956E3] to-[#1956E3] rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-[#1956E3]/15 transition-transform duration-400 group-hover:scale-110 group-hover:-translate-y-1">
-                    <Icon className="w-7 h-7 text-white" />
+                    <span className="flex h-full w-full items-center justify-center">
+                      <Icon className="block w-7 h-7 text-white" strokeWidth={2.2} />
+                    </span>
                   </div>
                   <h3
                     className="text-gray-900 mb-2.5 tracking-tight"

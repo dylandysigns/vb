@@ -3,9 +3,7 @@ import { HeroSection } from "./components/HeroSection";
 import { LessonCards } from "./components/LessonCards";
 import { Pricing } from "./components/Pricing";
 import { WhyBeckers } from "./components/WhyBeckers";
-import { JourneySection } from "./components/JourneySection";
 import { AboutSection } from "./components/AboutSection";
-import { HowItWorks } from "./components/HowItWorks";
 import { Locations } from "./components/Locations";
 import { Testimonials } from "./components/Testimonials";
 import { FAQ } from "./components/FAQ";
@@ -23,9 +21,7 @@ export default function App() {
           <LessonCards />
           <Pricing />
           <WhyBeckers />
-          <JourneySection />
           <AboutSection />
-          <HowItWorks />
           <Locations />
           <Testimonials />
           <FAQ />

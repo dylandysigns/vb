@@ -14,7 +14,7 @@ const cards = [
     price: "2.580",
     description: "Inclusief TTT + praktijkexamen",
     highlight: "€ 80,- korting",
-    features: ["30 rijlessen (60 min.)", "Tussentijdse toets (TTT)", "Praktijkexamen B inbegrepen", "Persoonlijk lesplan"],
+    features: ["30 rijlessen (60 min.)", "Tussentijdse toets (TTT)", "Praktijkexamen B inbegrepen"],
     popular: false,
   },
   {
@@ -23,7 +23,7 @@ const cards = [
     price: "2.925",
     description: "Inclusief TTT + praktijkexamen",
     highlight: "€ 85,- korting",
-    features: ["35 rijlessen (60 min.)", "Tussentijdse toets (TTT)", "Praktijkexamen B inbegrepen", "Persoonlijk lesplan"],
+    features: ["35 rijlessen (60 min.)", "Tussentijdse toets (TTT)", "Praktijkexamen B inbegrepen"],
     popular: true,
   },
   {
@@ -32,7 +32,16 @@ const cards = [
     price: "3.270",
     description: "Inclusief TTT + praktijkexamen",
     highlight: "€ 90,- korting",
-    features: ["40 rijlessen (60 min.)", "Tussentijdse toets (TTT)", "Praktijkexamen B inbegrepen", "Persoonlijk lesplan"],
+    features: ["40 rijlessen (60 min.)", "Tussentijdse toets (TTT)", "Praktijkexamen B inbegrepen"],
+    popular: false,
+  },
+  {
+    id: "be-dagcursus",
+    name: "Aanhanger Dagcursus",
+    price: "700",
+    description: "6 uur les + praktijkexamen",
+    highlight: "Rijbewijs BE",
+    features: ["6 uur rijles", "Praktijkexamen BE inbegrepen", "Les en examen op dezelfde dag"],
     popular: false,
   },
 ];
@@ -62,8 +71,9 @@ const tabs = [
       { name: "30 uur les incl. TTT + praktijkexamen", price: "€ 2.580,-", note: "€ 80,- korting" },
       { name: "35 uur les incl. TTT + praktijkexamen", price: "€ 2.925,-", note: "€ 85,- korting" },
       { name: "40 uur les incl. TTT + praktijkexamen", price: "€ 3.270,-", note: "€ 90,- korting" },
+      { name: "Dagcursus BE (6 uur les + praktijkexamen)", price: "€ 700,-" },
     ],
-    note: "** Het is mogelijk om in overleg een pakket in 2 maandelijkse termijnen te betalen",
+    note: "Betalen in 2 maandelijkse termijnen is in overleg mogelijk",
   },
   {
     id: "examens",
@@ -210,13 +220,13 @@ export function Pricing() {
                 Transparante tarieven, geen verrassingen
               </h2>
               <p className="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed" style={{ fontFamily: body, fontWeight: 400 }}>
-                Kies het pakket dat bij jou past. Betaling in termijnen is in overleg mogelijk.
+                Kies het pakket dat bij jou past. Betalen in 2 maandelijkse termijnen is in overleg mogelijk.
               </p>
             </div>
           </ScrollReveal>
 
           {/* Package cards */}
-          <div className="grid md:grid-cols-3 gap-5 mb-10">
+          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5 mb-10">
             {cards.map((pkg, i) => {
               const formLabel = `${pkg.name} (€ ${pkg.price},-)`;
               const isSelected = selectedPackage === formLabel;
