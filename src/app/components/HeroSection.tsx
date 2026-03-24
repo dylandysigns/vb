@@ -48,7 +48,7 @@ export function HeroSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-16 lg:py-20">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left content */}
-          <div className="text-white z-10">
+          <div className="order-2 lg:order-1 text-white z-10">
             <ScrollReveal delay={100}>
               <div className="inline-flex items-center gap-2.5 bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/10 mb-8">
                 <span className="w-2 h-2 bg-[#FD9F26] rounded-full animate-pulse" />
@@ -116,7 +116,7 @@ export function HeroSection() {
 
           {/* Right image */}
           <ScrollReveal direction="right" delay={400} distance={60}>
-            <div className="relative z-10 block">
+            <div className="order-1 lg:order-2 relative z-10 block">
               <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-black/30 group">
                 <ImageWithFallback
                   src={heroImage}
@@ -132,7 +132,7 @@ export function HeroSection() {
                 style={{ animation: "float 6s ease-in-out infinite" }}
               >
                 <div className="flex items-center gap-3.5">
-                  <div className="w-11 h-11 sm:w-12 sm:h-12 bg-gradient-to-br from-[#FD9F26] to-[#FD9F26] rounded-xl flex items-center justify-center shadow-lg shadow-[#FD9F26]/20">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center self-start rounded-xl bg-gradient-to-br from-[#FD9F26] to-[#FD9F26] shadow-lg shadow-[#FD9F26]/20 sm:h-12 sm:w-12">
                     <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>

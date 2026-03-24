@@ -462,7 +462,13 @@ export function Pricing() {
       {/* ===== Pricing Modal with Tabs ===== */}
       {modalOpen && (
         <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center sm:p-4" onClick={() => setModalOpen(false)}>
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" style={{ animation: "pricingFadeIn 300ms ease-out" }} />
+          <button
+            type="button"
+            aria-label="Sluit popup"
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            style={{ animation: "pricingFadeIn 300ms ease-out" }}
+            onClick={() => setModalOpen(false)}
+          />
           <div
             className="relative bg-white rounded-t-3xl sm:rounded-3xl max-w-2xl w-full max-h-[90vh] sm:max-h-[85vh] overflow-hidden shadow-2xl flex flex-col"
             style={{ animation: "pricingSlideUp 400ms cubic-bezier(0.16, 1, 0.3, 1)" }}

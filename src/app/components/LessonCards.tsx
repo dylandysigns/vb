@@ -137,9 +137,12 @@ export function LessonCards() {
           className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center sm:p-4"
           onClick={() => setSelectedLesson(null)}
         >
-          <div
+          <button
+            type="button"
+            aria-label="Sluit popup"
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
             style={{ animation: "lessonFadeIn 300ms ease-out" }}
+            onClick={() => setSelectedLesson(null)}
           />
           <div
             className="relative bg-white rounded-t-3xl sm:rounded-3xl max-w-lg w-full max-h-[90vh] sm:max-h-[85vh] overflow-y-auto shadow-2xl"
