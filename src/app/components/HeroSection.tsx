@@ -115,8 +115,8 @@ export function HeroSection() {
           </div>
 
           {/* Right image */}
-          <ScrollReveal direction="right" delay={400} distance={60}>
-            <div className="order-1 lg:order-2 relative z-10 block">
+          <ScrollReveal className="order-1 lg:order-2" direction="right" delay={400} distance={60}>
+            <div className="relative z-10 block">
               <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-black/30 group">
                 <ImageWithFallback
                   src={heroImage}

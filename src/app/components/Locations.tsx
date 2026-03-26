@@ -171,24 +171,20 @@ export function Locations() {
                       onClick={() => handleLocationClick(loc)}
                       className={`flex items-center gap-2.5 px-3.5 py-3 rounded-xl transition-all duration-300 text-left w-full ${
                         isSelected
-                          ? loc.main
-                            ? "bg-gradient-to-r from-[#1956E3] to-[#1956E3] text-white shadow-lg ring-2 ring-[#FD9F26]/50 scale-[1.03]"
-                            : "bg-[#1956E3] text-white shadow-md scale-[1.03]"
-                          : loc.main
-                            ? "bg-gradient-to-r from-[#1956E3] to-[#1956E3] text-white shadow-md hover:shadow-lg hover:scale-[1.02]"
-                            : "bg-gray-50 hover:bg-[#1956E3]/5 border border-gray-100 hover:border-[#1956E3]/20"
+                          ? "bg-gradient-to-r from-[#1956E3] to-[#1956E3] text-white shadow-lg ring-2 ring-[#FD9F26]/50 scale-[1.03]"
+                          : "bg-gray-50 hover:bg-[#1956E3]/5 border border-gray-100 hover:border-[#1956E3]/20"
                       }`}
                     >
                       <MapPin className={`w-3.5 h-3.5 flex-shrink-0 transition-colors duration-300 ${
-                        isSelected || loc.main ? "text-[#FD9F26]" : "text-[#1956E3]/40"
+                        isSelected ? "text-[#FD9F26]" : "text-[#1956E3]/40"
                       }`} />
                       <span
-                        className={isSelected || loc.main ? "text-white" : "text-gray-700"}
-                        style={{ fontFamily: body, fontWeight: isSelected || loc.main ? 600 : 400, fontSize: "0.85rem" }}
+                        className={isSelected ? "text-white" : "text-gray-700"}
+                        style={{ fontFamily: body, fontWeight: isSelected ? 600 : 400, fontSize: "0.85rem" }}
                       >
                         {loc.name}
                       </span>
-                      {isSelected && !loc.main && (
+                      {isSelected && (
                         <div className="ml-auto w-2 h-2 bg-[#FD9F26] rounded-full flex-shrink-0 animate-pulse" />
                       )}
                     </button>
