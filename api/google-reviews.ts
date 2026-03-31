@@ -1,5 +1,35 @@
 const PLACE_ID = process.env.GOOGLE_PLACES_PLACE_ID || "ChIJNRP23pvzxkcRUBVGovxnLSQ";
-const GOOGLE_PLACES_ENDPOINT = `https://places.googleapis.com/v1/places/${PLACE_ID}?languageCode=nl`;
+const LEGACY_DETAILS_ENDPOINT =
+  `https://maps.googleapis.com/maps/api/place/details/json?place_id=${PLACE_ID}&language=nl&reviews_sort=newest&fields=rating,user_ratings_total,reviews,url&key=`;
+const PLACES_NEW_ENDPOINT = `https://places.googleapis.com/v1/places/${PLACE_ID}?languageCode=nl`;
+
+type NormalizedReview = {
+  name: string;
+  text: string;
+  rating: number;
+  initials: string;
+  published: string;
+  publishTime?: string;
+};
+
+type LegacyReview = {
+  author_name?: string;
+  rating?: number;
+  relative_time_description?: string;
+  text?: string;
+  time?: number;
+};
+
+type LegacyPlaceResponse = {
+  result?: {
+    rating?: number;
+    user_ratings_total?: number;
+    url?: string;
+    reviews?: LegacyReview[];
+  };
+  status?: string;
+  error_message?: string;
+};
 
 type GooglePlaceReview = {
   rating?: number;
@@ -29,18 +59,115 @@ function getInitials(name: string) {
   return initials || "VB";
 }
 
-function normalizeReview(review: GooglePlaceReview, index: number) {
-  const author = review.authorAttribution?.displayName?.trim() || `Google reviewer ${index + 1}`;
-  const text = review.text?.text?.trim() || "Deze leerling heeft een positieve Google review achtergelaten.";
-
+function normalizeLegacyReview(review: LegacyReview, index: number): NormalizedReview {
+  const author = review.author_name?.trim() || `Google reviewer ${index + 1}`;
   return {
     name: author,
-    text,
+    text: review.text?.trim() || "Deze leerling heeft een positieve Google review achtergelaten.",
+    rating: review.rating || 5,
+    initials: getInitials(author),
+    published: review.relative_time_description || "Google review",
+    publishTime: typeof review.time === "number" ? new Date(review.time * 1000).toISOString() : "",
+  };
+}
+
+function normalizeNewReview(review: GooglePlaceReview, index: number): NormalizedReview {
+  const author = review.authorAttribution?.displayName?.trim() || `Google reviewer ${index + 1}`;
+  return {
+    name: author,
+    text: review.text?.text?.trim() || "Deze leerling heeft een positieve Google review achtergelaten.",
     rating: review.rating || 5,
     initials: getInitials(author),
     published: review.relativePublishTimeDescription || "Google review",
     publishTime: review.publishTime || "",
   };
+}
+
+function sortNewestFirst<T extends { publishTime?: string }>(reviews: T[]) {
+  return [...reviews].sort((a, b) => {
+    const aTime = a.publishTime ? new Date(a.publishTime).getTime() : 0;
+    const bTime = b.publishTime ? new Date(b.publishTime).getTime() : 0;
+    return bTime - aTime;
+  });
+}
+
+function buildPayload(input: {
+  rating?: number;
+  count?: number;
+  profileUrl?: string;
+  reviews: NormalizedReview[];
+}) {
+  const reviews = sortNewestFirst(input.reviews)
+    .slice(0, 6)
+    .map(({ publishTime, ...review }) => review);
+  const featuredReview = reviews[0];
+
+  return {
+    rating: typeof input.rating === "number" ? input.rating.toFixed(1) : "5.0",
+    count: input.count || reviews.length,
+    profileUrl:
+      input.profileUrl ||
+      "https://www.google.com/maps/search/?api=1&query=Verkeersschool%20Beckers&query_place_id=ChIJNRP23pvzxkcRUBVGovxnLSQ",
+    featuredReview: featuredReview
+      ? {
+          quote: featuredReview.text,
+          author: featuredReview.name,
+          label: "Google review",
+        }
+      : {
+          quote: "Leerlingen waarderen Verkeersschool Beckers om de rustige begeleiding en duidelijke uitleg.",
+          author: "Google review",
+          label: "Live gekoppeld",
+        },
+    reviews,
+  };
+}
+
+async function fetchLegacyNewest(apiKey: string) {
+  const response = await fetch(`${LEGACY_DETAILS_ENDPOINT}${apiKey}`);
+  if (!response.ok) {
+    throw new Error(`Legacy Places request failed with status ${response.status}`);
+  }
+
+  const data = (await response.json()) as LegacyPlaceResponse;
+  if (data.status !== "OK" || !data.result) {
+    throw new Error(data.error_message || data.status || "Legacy Places response invalid");
+  }
+
+  return buildPayload({
+    rating: data.result.rating,
+    count: data.result.user_ratings_total,
+    profileUrl: data.result.url,
+    reviews: (data.result.reviews || []).map(normalizeLegacyReview),
+  });
+}
+
+async function fetchPlacesNew(apiKey: string) {
+  const response = await fetch(PLACES_NEW_ENDPOINT, {
+    headers: {
+      "X-Goog-Api-Key": apiKey,
+      "X-Goog-FieldMask": [
+        "displayName",
+        "rating",
+        "userRatingCount",
+        "reviews",
+        "reviews.publishTime",
+        "googleMapsUri",
+      ].join(","),
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Places API (New) request failed with status ${response.status}`);
+  }
+
+  const data = (await response.json()) as GooglePlaceResponse;
+  return buildPayload({
+    rating: data.rating,
+    count: data.userRatingCount,
+    profileUrl: data.googleMapsUri,
+    reviews: (data.reviews || []).map(normalizeNewReview),
+  });
 }
 
 export default async function handler(req: any, res: any) {
@@ -50,62 +177,18 @@ export default async function handler(req: any, res: any) {
   }
 
   const apiKey = process.env.GOOGLE_PLACES_API_KEY;
-
   if (!apiKey) {
     return res.status(500).json({ error: "Missing GOOGLE_PLACES_API_KEY" });
   }
 
   try {
-    const response = await fetch(GOOGLE_PLACES_ENDPOINT, {
-      headers: {
-        "X-Goog-Api-Key": apiKey,
-        "X-Goog-FieldMask": [
-          "displayName",
-          "rating",
-          "userRatingCount",
-          "reviews",
-          "reviews.publishTime",
-          "googleMapsUri",
-        ].join(","),
-      },
-    });
+    let payload;
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      return res.status(response.status).json({ error: "Google Places request failed", details: errorText });
+    try {
+      payload = await fetchLegacyNewest(apiKey);
+    } catch {
+      payload = await fetchPlacesNew(apiKey);
     }
-
-    const place = (await response.json()) as GooglePlaceResponse;
-    const reviews = (place.reviews || [])
-      .map(normalizeReview)
-      .sort((a, b) => {
-        const aTime = a.publishTime ? new Date(a.publishTime).getTime() : 0;
-        const bTime = b.publishTime ? new Date(b.publishTime).getTime() : 0;
-        return bTime - aTime;
-      })
-      .slice(0, 6)
-      .map(({ publishTime, ...review }) => review);
-    const featuredReview = reviews[0];
-
-    const payload = {
-      rating: typeof place.rating === "number" ? place.rating.toFixed(1) : "5.0",
-      count: place.userRatingCount || reviews.length,
-      profileUrl:
-        place.googleMapsUri ||
-        "https://www.google.com/maps/search/?api=1&query=Verkeersschool%20Beckers&query_place_id=ChIJNRP23pvzxkcRUBVGovxnLSQ",
-      featuredReview: featuredReview
-        ? {
-            quote: featuredReview.text,
-            author: featuredReview.name,
-            label: "Google review",
-          }
-        : {
-            quote: "Leerlingen waarderen Verkeersschool Beckers om de rustige begeleiding en duidelijke uitleg.",
-            author: "Google review",
-            label: "Live gekoppeld",
-          },
-      reviews,
-    };
 
     res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate=86400");
     return res.status(200).json(payload);
