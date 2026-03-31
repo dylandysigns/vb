@@ -3,6 +3,7 @@ const GOOGLE_PLACES_ENDPOINT = `https://places.googleapis.com/v1/places/${PLACE_
 
 type GooglePlaceReview = {
   rating?: number;
+  publishTime?: string;
   relativePublishTimeDescription?: string;
   text?: { text?: string };
   authorAttribution?: {
@@ -38,6 +39,7 @@ function normalizeReview(review: GooglePlaceReview, index: number) {
     rating: review.rating || 5,
     initials: getInitials(author),
     published: review.relativePublishTimeDescription || "Google review",
+    publishTime: review.publishTime || "",
   };
 }
 
@@ -62,6 +64,7 @@ export default async function handler(req: any, res: any) {
           "rating",
           "userRatingCount",
           "reviews",
+          "reviews.publishTime",
           "googleMapsUri",
         ].join(","),
       },
@@ -73,7 +76,15 @@ export default async function handler(req: any, res: any) {
     }
 
     const place = (await response.json()) as GooglePlaceResponse;
-    const reviews = (place.reviews || []).map(normalizeReview).slice(0, 6);
+    const reviews = (place.reviews || [])
+      .map(normalizeReview)
+      .sort((a, b) => {
+        const aTime = a.publishTime ? new Date(a.publishTime).getTime() : 0;
+        const bTime = b.publishTime ? new Date(b.publishTime).getTime() : 0;
+        return bTime - aTime;
+      })
+      .slice(0, 6)
+      .map(({ publishTime, ...review }) => review);
     const featuredReview = reviews[0];
 
     const payload = {
