@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { Star, ExternalLink } from "lucide-react";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { ScrollReveal } from "./ScrollReveal";
-import reviewImage from "../../assets/testimonials-photo.jpg";
 
 const heading = "'zeitung', 'Inter', sans-serif";
 const body = "'zeitung', 'Inter', sans-serif";
@@ -161,36 +159,34 @@ export function Testimonials() {
           </div>
         </ScrollReveal>
 
-        {/* Image + reviews grid */}
         <div className="grid lg:grid-cols-3 gap-6">
-          {/* Left: photo card that spans 2 rows */}
-          <ScrollReveal className="lg:row-span-2 h-full">
-            <div className="relative rounded-2xl overflow-hidden h-full min-h-[300px] lg:min-h-0 group">
-              <ImageWithFallback
-                src={reviewImage}
-                alt="Geslaagde leerling bij Verkeersschool Beckers"
-                className="w-full h-full object-cover absolute inset-0 transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1956E3]/80 via-[#1956E3]/20 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-7">
-                <div className="flex items-center gap-1.5 mb-3">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#FD9F26] text-[#FD9F26]" />
-                  ))}
+          <ScrollReveal className="lg:col-span-3">
+            <div className="rounded-[2rem] border border-white/10 bg-white/10 backdrop-blur-md p-7 sm:p-8">
+              <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+                <div className="max-w-3xl">
+                  <div className="flex items-center gap-1.5 mb-3">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-[#FD9F26] text-[#FD9F26]" />
+                    ))}
+                  </div>
+                  <p className="text-white text-xl sm:text-2xl leading-relaxed" style={{ fontFamily: heading, fontWeight: 700 }}>
+                    "{reviewData.featuredReview.quote}"
+                  </p>
                 </div>
-                <p className="text-white text-lg leading-relaxed mb-3" style={{ fontFamily: body, fontWeight: 500 }}>
-                  "{reviewData.featuredReview.quote}"
-                </p>
-                <p className="text-white/60 text-sm" style={{ fontFamily: body, fontWeight: 500 }}>
-                  {reviewData.featuredReview.author}, {reviewData.featuredReview.label}
-                </p>
+                <div className="lg:text-right">
+                  <p className="text-white text-base" style={{ fontFamily: body, fontWeight: 600 }}>
+                    {reviewData.featuredReview.author}
+                  </p>
+                  <p className="text-white/60 text-sm mt-1" style={{ fontFamily: body, fontWeight: 500 }}>
+                    {reviewData.featuredReview.label}
+                  </p>
+                </div>
               </div>
             </div>
           </ScrollReveal>
 
-          {/* Right: review cards */}
           {visibleReviews.map((review, i) => (
-            <ScrollReveal key={review.name} delay={i * 80}>
+            <ScrollReveal key={`${review.name}-${review.published}-${i}`} delay={i * 80}>
               <div className="bg-white/8 backdrop-blur-md rounded-2xl p-6 border border-white/8 hover:bg-white/12 transition-all duration-400 group hover:-translate-y-1 h-full flex flex-col">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex gap-0.5">
