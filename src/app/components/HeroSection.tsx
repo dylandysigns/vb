@@ -73,7 +73,7 @@ export function HeroSection() {
 
             <ScrollReveal delay={350}>
               <p className="text-lg text-white/75 max-w-lg mb-8 leading-relaxed" style={{ fontFamily: body, fontWeight: 400 }}>
-                Bij Verkeersschool Beckers — een familiebedrijf sinds 2007 — leer je rijden in een ontspannen sfeer
+                Bij Verkeersschool Beckers, een familiebedrijf sinds 2007, leer je rijden in een ontspannen sfeer
                 met persoonlijke begeleiding. Wij helpen je stap voor stap richting een veilige en zelfverzekerde rijstijl.
               </p>
             </ScrollReveal>
@@ -128,36 +128,32 @@ export function HeroSection() {
 
               {/* Floating card */}
               <div
-                className="absolute -bottom-4 left-4 sm:-bottom-5 sm:-left-5 bg-white rounded-2xl p-4 sm:p-5 shadow-2xl transition-transform duration-500 hover:-translate-y-1 max-w-[calc(100%-2rem)] sm:max-w-none"
+                className="mt-4 flex items-start gap-3.5 rounded-2xl bg-white p-4 shadow-xl lg:absolute lg:-bottom-5 lg:-left-5 lg:mt-0 lg:max-w-none lg:p-5 lg:shadow-2xl transition-transform duration-500 hover:-translate-y-1"
                 style={{ animation: "float 6s ease-in-out infinite" }}
               >
-                <div className="flex items-center gap-3.5">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center self-start rounded-xl bg-gradient-to-br from-[#FD9F26] to-[#FD9F26] shadow-lg shadow-[#FD9F26]/20 sm:h-12 sm:w-12">
-                    <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-gray-900" style={{ fontFamily: heading, fontWeight: 700, fontSize: "0.9rem" }}>Flexibele lestijden</p>
-                    <p className="text-gray-500 leading-snug" style={{ fontFamily: body, fontWeight: 400, fontSize: "0.78rem" }}>Ma t/m do 8:00-16:30 en 18:00-20:00, vr 8:00-13:30</p>
-                  </div>
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center self-start rounded-xl bg-gradient-to-br from-[#FD9F26] to-[#FD9F26] shadow-lg shadow-[#FD9F26]/20 sm:h-12 sm:w-12">
+                  <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-gray-900" style={{ fontFamily: heading, fontWeight: 700, fontSize: "0.9rem" }}>Flexibele lestijden</p>
+                  <p className="text-gray-500 leading-snug" style={{ fontFamily: body, fontWeight: 400, fontSize: "0.78rem" }}>Ma t/m do 8:00-16:30 en 18:00-20:00, vr 8:00-13:30</p>
                 </div>
               </div>
 
               {/* Second floating card */}
               <div
-                className="absolute top-4 right-4 sm:-top-3 sm:-right-3 bg-white rounded-2xl p-4 shadow-2xl transition-transform duration-500 hover:-translate-y-1"
+                className="mt-3 flex items-center gap-3 rounded-2xl bg-white p-4 shadow-xl lg:absolute lg:-top-3 lg:-right-3 lg:mt-0 lg:shadow-2xl transition-transform duration-500 hover:-translate-y-1"
                 style={{ animation: "float 7s ease-in-out infinite reverse" }}
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-[#1956E3] to-[#1956E3] rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-gray-900 text-sm leading-snug" style={{ fontFamily: heading, fontWeight: 700 }}>Betalen in 2 maandelijkse termijnen</p>
-                  </div>
+                <div className="w-10 h-10 bg-gradient-to-br from-[#1956E3] to-[#1956E3] rounded-lg flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-gray-900 text-sm leading-snug" style={{ fontFamily: heading, fontWeight: 700 }}>Rijlessen voor auto en aanhanger</p>
                 </div>
               </div>
             </div>

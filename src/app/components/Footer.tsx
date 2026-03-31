@@ -10,7 +10,7 @@ const quickLinks = [
   { label: "Opleidingen", href: "#rijlessen" },
   { label: "Tarieven", href: "#tarieven" },
   { label: "Over Ons", href: "#over-ons" },
-  { label: "Locaties", href: "#locaties" },
+  { label: "Lesgebied", href: "#locaties" },
   { label: "Reviews", href: "#reviews" },
   { label: "Contact", href: "#proefles" },
 ];
@@ -38,7 +38,7 @@ export function Footer() {
             <div className="sm:col-span-2 lg:col-span-1">
               <img src={logo} alt="Verkeersschool Beckers" className="h-11 w-auto mb-5 brightness-0 invert" />
               <p className="text-gray-500 text-sm leading-relaxed mb-6" style={{ fontFamily: body, fontWeight: 400 }}>
-                Verkeersschool Beckers — een familiebedrijf sinds 2007. Jouw partner voor betrouwbare en persoonlijke rijlessen in Zaltbommel en omstreken.
+                Verkeersschool Beckers, een familiebedrijf sinds 2007. Jouw partner voor betrouwbare en persoonlijke rijlessen in Zaltbommel en omstreken.
               </p>
               <div className="flex gap-3">
                 {[
@@ -88,8 +88,8 @@ export function Footer() {
                 <li className="flex items-start gap-3 text-gray-500 text-sm">
                   <Phone className="w-4 h-4 mt-0.5 text-[#FD9F26] flex-shrink-0" />
                   <div style={{ fontFamily: body }}>
-                    <a href="tel:+31638687155" className="hover:text-white transition-colors duration-300 block">Mitchell: 06 - 38 68 71 55</a>
-                    <a href="tel:+31634042048" className="hover:text-white transition-colors duration-300 block mt-1">Rodney: 06 - 34 04 20 48</a>
+                    <a href="tel:+31638687155" className="hover:text-white transition-colors duration-300 block">Mitchell: 06 38 68 71 55</a>
+                    <a href="tel:+31634042048" className="hover:text-white transition-colors duration-300 block mt-1">Rodney: 06 34 04 20 48</a>
                   </div>
                 </li>
                 <li className="flex items-center gap-3 text-gray-500 text-sm">

@@ -9,26 +9,23 @@ import { Testimonials } from "./components/Testimonials";
 import { FAQ } from "./components/FAQ";
 import { FinalCTA } from "./components/FinalCTA";
 import { Footer } from "./components/Footer";
-import { PackageProvider } from "./components/PackageContext";
 
 export default function App() {
   return (
-    <PackageProvider>
-      <div className="min-h-screen bg-white" style={{ fontFamily: "'zeitung', 'Inter', sans-serif" }}>
-        <Header />
-        <main>
-          <HeroSection />
-          <LessonCards />
-          <Pricing />
-          <WhyBeckers />
-          <AboutSection />
-          <Locations />
-          <Testimonials />
-          <FAQ />
-          <FinalCTA />
-        </main>
-        <Footer />
-      </div>
-    </PackageProvider>
+    <div className="min-h-screen bg-white" style={{ fontFamily: "'zeitung', 'Inter', sans-serif" }}>
+      <Header />
+      <main>
+        <HeroSection />
+        <LessonCards />
+        <Pricing />
+        <WhyBeckers />
+        <AboutSection />
+        <Locations />
+        <Testimonials />
+        <FAQ />
+        <FinalCTA />
+      </main>
+      <Footer />
+    </div>
   );
 }

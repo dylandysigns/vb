@@ -30,6 +30,11 @@ const benefits = [
     title: "Rijschoolsoftware \"On My Way\"",
     description: "Plan zelf je rijlessen in en bekijk je voortgang via de \"On My Way\" app. Altijd overzicht over je opleiding.",
   },
+  {
+    icon: Car,
+    title: "Deskundige instructeurs",
+    description: "Wij zijn altijd up to date van de laatste ontwikkelingen en bijscholingen.",
+  },
 ];
 
 export function WhyBeckers() {
@@ -48,7 +53,7 @@ export function WhyBeckers() {
               className="text-3xl sm:text-4xl lg:text-[2.75rem] text-gray-900 mb-5 tracking-tight"
               style={{ fontFamily: heading, fontWeight: 800 }}
             >
-              Waarom kiezen voor Verkeersschool Beckers?
+              Waarom kiezen voor onze rijschool?
             </h2>
             <p className="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed" style={{ fontFamily: body, fontWeight: 400 }}>
               Wij geloven dat leren rijden een positieve ervaring moet zijn. Dit is wat ons onderscheidt.

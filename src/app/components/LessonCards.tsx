@@ -39,7 +39,7 @@ const lessons: Lesson[] = [
     modalContent: [
       "Onze rijopleiding is opgebouwd in fases en wordt gegeven op een manier die voor jou het beste werkt. De lessen zijn duidelijk, opbouwend en volledig afgestemd op jouw leerniveau.",
       "Via de rijschoolsoftware \"On My Way\" kun je zelf jouw rijlessen inplannen en je voortgang inzien. Zo heb je altijd overzicht en plan je je lessen wanneer het jou het beste uitkomt.",
-      "De lessen vinden plaats in de regio Zaltbommel en omgeving (Bommelerwaard), zodat je vertrouwd raakt met diverse verkeerssituaties. Je leert rijden in een moderne, comfortabele lesauto met schakelbak.",
+      "De lessen vinden plaats in de regio Zaltbommel en omgeving, zodat je vertrouwd raakt met diverse verkeerssituaties. Je leert rijden in een moderne, comfortabele lesauto met schakelbak.",
     ],
     modalHighlights: ["Duidelijk en opbouwend", "Op jouw leerniveau", "Rijschoolsoftware \"On My Way\"", "Lessen zelf inplannen", "Voortgang inzien", "Flexibele lestijden"],
     pricingTabId: "rijlessen",
@@ -51,7 +51,8 @@ const lessons: Lesson[] = [
     description: "Nodig wanneer de combinatie auto + aanhanger zwaarder is dan 3500 kg. Dagcursus beschikbaar met les en examen op dezelfde dag.",
     modalTitle: "Aanhanger (Rijbewijs BE)",
     modalContent: [
-      "Een BE-rijbewijs is nodig wanneer de combinatie van auto en aanhanger zwaarder is dan 3500 kg. Met een BE-rijbewijs mag je een aanhanger van maximaal 3500 kg trekken.",
+      "Een BE-rijbewijs is nodig wanneer de combinatie van auto en aanhanger zwaarder is dan 3500 kg.",
+      "Met een BE-rijbewijs mag je een aanhanger van maximaal 3500 kg trekken, de totale combinatie mag maximaal 7000 kg wegen.",
       "Wij bieden een efficiënte dagcursus aan: 6 uur les plus het praktijkexamen, allemaal op dezelfde dag. Zo heb je in één dag je BE-rijbewijs in handen.",
       "Heb je meer oefentijd nodig? Extra lessen zijn altijd mogelijk. Wij stemmen het traject af op jouw ervaring en wensen.",
     ],

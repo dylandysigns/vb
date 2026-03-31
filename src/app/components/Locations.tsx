@@ -18,7 +18,7 @@ const locations: Location[] = [
   { name: "Bruchem", main: false, lat: 51.7912, lng: 5.2230 },
   { name: "Zuilichem", main: false, lat: 51.7962, lng: 5.1201 },
   { name: "Nieuwaal", main: false, lat: 51.8130, lng: 5.1970 },
-  { name: "Delwijnen", main: false, lat: 51.7840, lng: 5.1820 },
+  { name: "Rossum", main: false, lat: 51.7996, lng: 5.3334 },
   { name: "Aalst", main: false, lat: 51.7880, lng: 5.1310 },
   { name: "Waardenburg", main: false, lat: 51.8310, lng: 5.2585 },
   { name: "Neerijnen", main: false, lat: 51.8370, lng: 5.2830 },
@@ -66,7 +66,7 @@ export function Locations() {
               className="inline-block text-[#1956E3] bg-[#1956E3]/8 px-5 py-2 rounded-full text-sm tracking-wide mb-5"
               style={{ fontFamily: body, fontWeight: 600 }}
             >
-              Leslocaties
+              Lesgebied
             </span>
             <h2
               className="text-3xl sm:text-4xl lg:text-[2.75rem] text-gray-900 mb-5 tracking-tight"
@@ -75,8 +75,8 @@ export function Locations() {
               Waar geven wij les?
             </h2>
             <p className="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed" style={{ fontFamily: body, fontWeight: 400 }}>
-              Verkeersschool Beckers is actief in Zaltbommel en omliggende plaatsen in de Bommelerwaard.
-              Klik op een locatie om deze op de kaart te bekijken.
+              Verkeersschool Beckers is actief in Zaltbommel en omstreken.
+              Klik op een locatie om deze op de kaart te bekijken. Onze praktijkexamens rijden wij in Tiel.
             </p>
           </div>
         </ScrollReveal>
@@ -138,10 +138,10 @@ export function Locations() {
               <div className="absolute bottom-4 left-4 z-20 flex items-center gap-2.5 bg-gradient-to-r from-[#1956E3] to-[#1956E3] px-4 py-2.5 rounded-xl shadow-lg">
                 <Navigation className="w-3.5 h-3.5 text-[#FD9F26]" />
                 <span className="text-white text-xs" style={{ fontFamily: body, fontWeight: 600 }}>
-                  Bommelerwaard
+                  Tiel
                 </span>
                 <span className="text-white/40 text-[0.65rem]" style={{ fontFamily: body }}>
-                  {locations.length} locaties
+                  examengebied
                 </span>
               </div>
             </div>
@@ -156,7 +156,7 @@ export function Locations() {
                 </div>
                 <div>
                   <h3 className="text-gray-900 tracking-tight" style={{ fontFamily: heading, fontWeight: 700, fontSize: "1.1rem" }}>
-                    Onze leslocaties
+                    Ons lesgebied
                   </h3>
                   <p className="text-gray-400 text-xs" style={{ fontFamily: body }}>{locations.length} locaties in de regio</p>
                 </div>

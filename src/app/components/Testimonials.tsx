@@ -56,17 +56,17 @@ export function Testimonials() {
 
     async function loadReviews() {
       try {
-        const response = await fetch("/google-reviews.json", { cache: "no-store" });
+        const response = await fetch("/api/google-reviews", { cache: "no-store" });
         if (!response.ok) {
           return;
         }
 
         const data = (await response.json()) as ReviewData;
-        if (isMounted) {
+        if (isMounted && data?.rating && Array.isArray(data?.reviews)) {
           setReviewData(data);
         }
       } catch {
-        // Keep the fallback review payload when the static JSON is unavailable.
+        // Keep the fallback review payload when the API is unavailable.
       }
     }
 
@@ -182,7 +182,7 @@ export function Testimonials() {
                   "{reviewData.featuredReview.quote}"
                 </p>
                 <p className="text-white/60 text-sm" style={{ fontFamily: body, fontWeight: 500 }}>
-                  — {reviewData.featuredReview.author}, {reviewData.featuredReview.label}
+                  {reviewData.featuredReview.author}, {reviewData.featuredReview.label}
                 </p>
               </div>
             </div>

@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import { Phone, MessageCircle, Package, X } from "lucide-react";
+import { useRef, useState } from "react";
+import { Phone, MessageCircle } from "lucide-react";
 import { ScrollReveal } from "./ScrollReveal";
-import { usePackage } from "./PackageContext";
 
 const heading = "'zeitung', 'Inter', sans-serif";
 const body = "'zeitung', 'Inter', sans-serif";
@@ -9,8 +8,6 @@ const web3formsEndpoint = "https://api.web3forms.com/submit";
 const web3formsAccessKey = "9180f8ee-c044-4680-8284-2c4f31aab1f0";
 
 export function FinalCTA() {
-  const { selectedPackage, setSelectedPackage } = usePackage();
-  const packageRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitState, setSubmitState] = useState<{
@@ -20,15 +17,6 @@ export function FinalCTA() {
     type: "idle",
     message: "",
   });
-
-  // Flash the package badge when it changes
-  useEffect(() => {
-    if (selectedPackage && packageRef.current) {
-      packageRef.current.classList.remove("cta-flash");
-      void packageRef.current.offsetWidth; // force reflow
-      packageRef.current.classList.add("cta-flash");
-    }
-  }, [selectedPackage]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,7 +28,6 @@ export function FinalCTA() {
     const email = String(formData.get("email") || "").trim();
     const phone = String(formData.get("phone") || "").trim();
     const city = String(formData.get("city") || "").trim();
-    const selectedPackageValue = String(formData.get("selectedPackage") || "").trim();
     const message = String(formData.get("message") || "").trim();
 
     setIsSubmitting(true);
@@ -54,7 +41,6 @@ export function FinalCTA() {
       formData.set("name", `${firstName} ${lastName}`.trim());
       formData.set("phone", phone);
       formData.set("city", city);
-      formData.set("selectedPackage", selectedPackageValue);
       formData.set("message", message || "Geen extra bericht ingevuld.");
 
       const response = await fetch(web3formsEndpoint, {
@@ -73,7 +59,6 @@ export function FinalCTA() {
       }
 
       form.reset();
-      setSelectedPackage(null);
       setSubmitState({
         type: "success",
         message: "Bedankt, je aanvraag is succesvol verzonden. We nemen zo snel mogelijk contact met je op.",
@@ -126,32 +111,6 @@ export function FinalCTA() {
             <h3 className="text-white mb-3" style={{ fontFamily: heading, fontWeight: 700, fontSize: "1.3rem" }}>
               Vraag je proefles aan
             </h3>
-
-            {/* Selected package badge */}
-            {selectedPackage && (
-              <div
-                ref={packageRef}
-                className="inline-flex items-center gap-2.5 bg-[#FD9F26]/15 border border-[#FD9F26]/30 text-[#FD9F26] px-4 py-2 rounded-xl mb-6"
-                style={{ animation: "ctaBadgeIn 400ms cubic-bezier(0.34, 1.56, 0.64, 1)" }}
-              >
-                <Package className="w-4 h-4 flex-shrink-0" />
-                <span className="text-sm" style={{ fontFamily: body, fontWeight: 600 }}>
-                  {selectedPackage}
-                </span>
-                <button
-                  onClick={() => setSelectedPackage(null)}
-                  className="p-0.5 hover:bg-[#FD9F26]/20 rounded-md transition-colors duration-200 ml-1"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            )}
-
-            {!selectedPackage && (
-              <p className="text-white/40 text-sm mb-6" style={{ fontFamily: body }}>
-                Selecteer hierboven een pakket, of vul direct het formulier in
-              </p>
-            )}
 
             {submitState.type !== "idle" && (
               <div
@@ -224,31 +183,6 @@ export function FinalCTA() {
                 style={{ fontFamily: body }}
               />
 
-              {/* Visible package selection in form */}
-              <div className="relative">
-                <select
-                  name="selectedPackage"
-                  value={selectedPackage || ""}
-                  onChange={(e) => setSelectedPackage(e.target.value || null)}
-                  className="w-full px-5 py-3.5 bg-white/8 border border-white/15 rounded-xl text-white focus:outline-none focus:border-[#FD9F26] focus:bg-white/12 transition-all duration-300 appearance-none cursor-pointer"
-                  style={{ fontFamily: body }}
-                >
-                  <option value="" className="text-gray-900">Kies een pakket (optioneel)</option>
-                  <option value="30 Uur Pakket (€ 2.580,-)" className="text-gray-900">30 Uur Pakket — € 2.580,-</option>
-                  <option value="35 Uur Pakket (€ 2.925,-)" className="text-gray-900">35 Uur Pakket — € 2.925,-</option>
-                  <option value="40 Uur Pakket (€ 3.270,-)" className="text-gray-900">40 Uur Pakket — € 3.270,-</option>
-                  <option value="Aanhanger Dagcursus (€ 700,-)" className="text-gray-900">Aanhanger Dagcursus — € 700,-</option>
-                  <option value="Proefles + Advies (€ 60,-)" className="text-gray-900">Proefles + Advies — € 60,-</option>
-                  <option value="Losse Rijles 60 min. (€ 70,-)" className="text-gray-900">Losse Rijles 60 min. — € 70,-</option>
-                  <option value="Losse Rijles 90 min. (€ 105,-)" className="text-gray-900">Losse Rijles 90 min. — € 105,-</option>
-                </select>
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                  <svg className="w-4 h-4 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </div>
-              </div>
-
               {/* Text area for message */}
               <textarea
                 name="message"
@@ -264,7 +198,7 @@ export function FinalCTA() {
                 className="w-full py-4 bg-gradient-to-r from-[#FD9F26] to-[#FD9F26] hover:from-[#FD9F26] hover:to-[#FD9F26] text-white rounded-xl transition-all duration-300 shadow-lg shadow-[#FD9F26]/20 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
                 style={{ fontFamily: body, fontWeight: 700 }}
               >
-                {isSubmitting ? "Bezig met verzenden..." : selectedPackage ? "Aanvraag versturen" : "Proefles aanvragen"}
+                {isSubmitting ? "Bezig met verzenden..." : "Proefles aanvragen"}
               </button>
             </form>
             <p className="text-white/30 text-xs mt-4" style={{ fontFamily: body }}>
@@ -282,7 +216,7 @@ export function FinalCTA() {
               style={{ fontFamily: body, fontWeight: 500 }}
             >
               <Phone className="w-4 h-4" />
-              Mitchell: 06 - 38 68 71 55
+              Mitchell: 06 38 68 71 55
             </a>
             <a
               href="tel:+31634042048"
@@ -290,7 +224,7 @@ export function FinalCTA() {
               style={{ fontFamily: body, fontWeight: 500 }}
             >
               <Phone className="w-4 h-4" />
-              Rodney: 06 - 34 04 20 48
+              Rodney: 06 34 04 20 48
             </a>
           </div>
           <div className="flex justify-center mt-4">
@@ -306,15 +240,6 @@ export function FinalCTA() {
         </ScrollReveal>
       </div>
 
-      <style>{`
-        @keyframes ctaBadgeIn {
-          from { opacity: 0; transform: scale(0.8) translateY(8px); }
-          to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-        .cta-flash {
-          animation: ctaBadgeIn 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-      `}</style>
     </section>
   );
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, MessageCircle, X } from "lucide-react";
 import logo from "../../assets/866a497a9b00e621a1fd3a06b52178b660fb5a92.png";
 
 const navLinks = [
@@ -7,7 +7,7 @@ const navLinks = [
   { label: "Opleidingen", href: "#rijlessen" },
   { label: "Tarieven", href: "#tarieven" },
   { label: "Over Ons", href: "#over-ons" },
-  { label: "Locaties", href: "#locaties" },
+  { label: "Lesgebied", href: "#locaties" },
   { label: "Reviews", href: "#reviews" },
   { label: "Contact", href: "#contact" },
 ];
@@ -70,30 +70,40 @@ export function Header() {
             </a>
           </div>
 
-          <button
-            className="lg:hidden p-2 text-gray-700 hover:text-[#1956E3] transition-colors duration-300"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Menu"
-          >
-            <div className="relative w-6 h-6">
-              <Menu
-                size={24}
-                className="absolute inset-0 transition-all duration-300"
-                style={{
-                  opacity: mobileOpen ? 0 : 1,
-                  transform: mobileOpen ? "rotate(90deg)" : "rotate(0deg)",
-                }}
-              />
-              <X
-                size={24}
-                className="absolute inset-0 transition-all duration-300"
-                style={{
-                  opacity: mobileOpen ? 1 : 0,
-                  transform: mobileOpen ? "rotate(0deg)" : "rotate(-90deg)",
-                }}
-              />
-            </div>
-          </button>
+          <div className="flex items-center gap-2 lg:hidden">
+            <a
+              href="https://wa.me/31638687155"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#25D366] text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+              aria-label="WhatsApp"
+            >
+              <MessageCircle size={18} />
+            </a>
+
+            <button
+              className="p-2 text-gray-700 hover:text-[#1956E3] transition-colors duration-300"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Menu"
+            >
+              <div className="relative w-6 h-6">
+                <Menu
+                  size={24}
+                  className="absolute inset-0 transition-all duration-300"
+                  style={{
+                    opacity: mobileOpen ? 0 : 1,
+                    transform: mobileOpen ? "rotate(90deg)" : "rotate(0deg)",
+                  }}
+                />
+                <X
+                  size={24}
+                  className="absolute inset-0 transition-all duration-300"
+                  style={{
+                    opacity: mobileOpen ? 1 : 0,
+                    transform: mobileOpen ? "rotate(0deg)" : "rotate(-90deg)",
+                  }}
+                />
+              </div>
+            </button>
+          </div>
         </div>
       </div>
 

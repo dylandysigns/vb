@@ -7,11 +7,13 @@ const body = "'zeitung', 'Inter', sans-serif";
 
 const faqs = [
   { question: "Vanaf welke leeftijd kan ik beginnen met rijlessen?", answer: "Je mag in Nederland beginnen met autorijlessen vanaf 16,5 jaar. Je praktijkexamen mag je afleggen vanaf 17 jaar. Onder de 18 rijd je dan eerst met een begeleiderspas (2toDrive)." },
-  { question: "Hoeveel rijlessen heb ik gemiddeld nodig?", answer: "Gemiddeld hebben leerlingen tussen de 30 en 45 rijlessen nodig, maar dit verschilt per persoon. Na je proefles geven wij een eerlijke inschatting van het aantal lessen dat je nodig hebt." },
+  { question: "Hoeveel rijlessen heb ik gemiddeld nodig?", answer: "Het landelijke gemiddelde ligt tussen de 40 en 45 lesuren. Dit verschilt per persoon, de een heeft meer tijd nodig dan de ander. Tijdens de proefles maken we een inschatting van het aantal lessen dat je nodig hebt." },
+  { question: "Hoe vaak kan ik per week lessen?", answer: "Je kunt bij ons 1x per week lessen. We beginnen meestal met lessen van 1 uur. Later in de rijopleiding lessen we meestal 1,5 uur." },
   { question: "Wat zijn jullie lestijden?", answer: "Onze lestijden zijn maandag t/m donderdag van 8:00-16:30 en van 18:00-20:00. Op vrijdag lessen we van 8:00-13:30." },
-  { question: "Hoe vraag ik een proefles aan?", answer: "Je kunt een proefles aanvragen via het formulier op onze website, door te bellen naar Mitchell (06 - 38 68 71 55) of Rodney (06 - 34 04 20 48), of via WhatsApp. We nemen snel contact met je op om een afspraak in te plannen." },
+  { question: "Hoe vraag ik een proefles aan?", answer: "Je kunt een proefles aanvragen via het formulier op onze website, door te bellen naar Mitchell (06 38 68 71 55) of Rodney (06 34 04 20 48), of via WhatsApp. We nemen snel contact met je op om een afspraak in te plannen." },
   { question: "Wat kost een rijles bij Verkeersschool Beckers?", answer: "Een losse rijles van 60 minuten kost € 70,-. We bieden ook voordelige lespakketten aan vanaf € 2.580,-. Bekijk onze tarievenpagina voor alle prijzen." },
-  { question: "Wat houdt de proefles precies in?", answer: "Tijdens de proefles van 60 minuten maak je kennis met de instructeur en de lesauto. Je rijdt een stukje en we bespreken je verwachtingen. Daarna geven we een eerlijk advies over het verwachte aantal lessen. De proefles kost € 60,-." },
+  { question: "Wat houdt de proefles precies in?", answer: "Tijdens de proefles maak je kennis met de instructeur en de lesauto. Het doel van de proefles is vooral vertrouwen winnen. Wanneer je nog geen ervaring hebt met autorijden beginnen we slechts met het sturen, gas geven en richting aangeven. Vanuit daar bouwen we het verder op. Heb je al wel ervaring met autorijden, dan passen we het aan jouw niveau aan. Na de proefles geven we een eerlijk advies over het verwachte aantal lessen. De proefles kost €60,-." },
+  { question: "Waar doen jullie praktijkexamens?", answer: "Onze praktijkexamens rijden wij in Tiel." },
 ];
 
 export function FAQ() {
