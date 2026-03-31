@@ -59,6 +59,19 @@ function getInitials(name: string) {
   return initials || "VB";
 }
 
+function normalizePublishedLabel(value?: string) {
+  if (!value) return "Google review";
+
+  const label = value.trim().toLowerCase();
+
+  if (label === "vandaag") return "Vandaag";
+  if (label === "gisteren") return "Gisteren";
+  if (label.includes("afgelopen week")) return "Deze week";
+  if (label.includes("afgelopen maand")) return "Deze maand";
+
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
 function normalizeLegacyReview(review: LegacyReview, index: number): NormalizedReview {
   const author = review.author_name?.trim() || `Google reviewer ${index + 1}`;
   return {
@@ -66,7 +79,7 @@ function normalizeLegacyReview(review: LegacyReview, index: number): NormalizedR
     text: review.text?.trim() || "Deze leerling heeft een positieve Google review achtergelaten.",
     rating: review.rating || 5,
     initials: getInitials(author),
-    published: review.relative_time_description || "Google review",
+    published: normalizePublishedLabel(review.relative_time_description),
     publishTime: typeof review.time === "number" ? new Date(review.time * 1000).toISOString() : "",
   };
 }
@@ -78,7 +91,7 @@ function normalizeNewReview(review: GooglePlaceReview, index: number): Normalize
     text: review.text?.text?.trim() || "Deze leerling heeft een positieve Google review achtergelaten.",
     rating: review.rating || 5,
     initials: getInitials(author),
-    published: review.relativePublishTimeDescription || "Google review",
+    published: normalizePublishedLabel(review.relativePublishTimeDescription),
     publishTime: review.publishTime || "",
   };
 }
