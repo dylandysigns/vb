@@ -15,12 +15,6 @@ const quickLinks = [
   { label: "Contact", href: "#proefles" },
 ];
 
-const legalLinks = [
-  { label: "Privacybeleid", href: "#" },
-  { label: "Algemene voorwaarden", href: "#" },
-  { label: "Cookiebeleid", href: "#" },
-];
-
 export function Footer() {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith("#")) {
@@ -128,13 +122,9 @@ export function Footer() {
             <p className="text-gray-600 text-xs" style={{ fontFamily: body }}>
               &copy; 2026 Verkeersschool Beckers. Alle rechten voorbehouden.
             </p>
-            <div className="flex gap-6">
-              {legalLinks.map((link) => (
-                <a key={link.label} href={link.href} className="text-gray-600 hover:text-gray-400 transition-colors duration-300 text-xs" style={{ fontFamily: body }}>
-                  {link.label}
-                </a>
-              ))}
-            </div>
+            <p className="text-gray-600 text-xs" style={{ fontFamily: body }}>
+              KVK: 89067290
+            </p>
           </div>
         </div>
       </div>
