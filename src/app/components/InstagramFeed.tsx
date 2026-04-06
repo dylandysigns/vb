@@ -257,7 +257,7 @@ export function InstagramFeed() {
                 Deze geslaagde leerlingen gingen je voor bij Beckers
               </h2>
               <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-gray-500" style={{ fontFamily: body, fontWeight: 500 }}>
-                Van eerste examen tot rijbewijs op zak: ontdek de nieuwste felicitaties van leerlingen die hun doel haalden bij Verkeersschool Beckers.
+                Rijbewijs in the pocket, foto erbij en gaan. Straks sta jij hier gewoon ook tussen.
               </p>
 
               <ScrollReveal delay={140}>
