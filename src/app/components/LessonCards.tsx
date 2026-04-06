@@ -108,7 +108,7 @@ export function LessonCards() {
                     onClick={() => setSelectedLesson(lesson)}
                     className="w-full h-full text-left bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-400 border border-gray-100 group cursor-pointer hover:-translate-y-1.5 active:translate-y-0 flex flex-col"
                   >
-                    <div className="w-16 h-16 bg-[#1956E3]/8 group-hover:bg-gradient-to-br group-hover:from-[#1956E3] group-hover:to-[#1956E3] rounded-2xl flex items-center justify-center mb-6 transition-all duration-400 flex-shrink-0">
+                    <div className="w-16 h-16 bg-[#1956E3]/8 group-hover:bg-[#1956E3] rounded-2xl flex items-center justify-center mb-6 transition-all duration-400 flex-shrink-0">
                       <Icon className="w-7 h-7 text-[#1956E3] group-hover:text-white transition-colors duration-400" />
                     </div>
                     <h3 className="text-gray-900 mb-3 tracking-tight flex-shrink-0" style={{ fontFamily: heading, fontWeight: 700, fontSize: "1.2rem" }}>
@@ -158,7 +158,7 @@ export function LessonCards() {
             {/* Header */}
             <div className="sticky top-0 bg-white/95 backdrop-blur-md z-10 px-6 sm:px-7 pt-4 sm:pt-6 pb-4 border-b border-gray-100 flex items-start justify-between">
               <div className="flex items-center gap-3.5">
-                <div className="w-11 h-11 bg-gradient-to-br from-[#1956E3] to-[#1956E3] rounded-xl flex items-center justify-center shadow-md">
+                <div className="w-11 h-11 bg-[#1956E3] rounded-xl flex items-center justify-center shadow-md">
                   <selectedLesson.icon className="w-5 h-5 text-white" />
                 </div>
                 <h3 className="text-gray-900 tracking-tight" style={{ fontFamily: heading, fontWeight: 700, fontSize: "1.15rem" }}>
@@ -198,7 +198,7 @@ export function LessonCards() {
               {/* CTA buttons */}
               <button
                 onClick={() => scrollToPricingTab(selectedLesson.pricingTabId)}
-                className="w-full flex items-center justify-center gap-2.5 py-3.5 bg-gradient-to-r from-[#FD9F26] to-[#FD9F26] hover:from-[#FD9F26] hover:to-[#FD9F26] text-white rounded-xl transition-all duration-300 hover:shadow-lg shadow-lg shadow-[#FD9F26]/20 group/cta"
+                className="w-full flex items-center justify-center gap-2.5 py-3.5 bg-[#FD9F26] hover:brightness-90 text-white rounded-xl transition-all duration-300 hover:shadow-lg shadow-lg shadow-[#FD9F26]/20 group/cta"
                 style={{ fontFamily: body, fontWeight: 600 }}
               >
                 {selectedLesson.pricingTabLabel}
@@ -221,10 +221,6 @@ export function LessonCards() {
         </div>
       )}
 
-      <style>{`
-        @keyframes lessonFadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes lessonSlideUp { from { opacity: 0; transform: translateY(30px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
-      `}</style>
     </>
   );
 }

@@ -108,9 +108,14 @@ export function FinalCTA() {
         {/* Lead form */}
         <ScrollReveal delay={200}>
           <div className="bg-white/8 backdrop-blur-md rounded-3xl p-8 sm:p-10 max-w-xl mx-auto mb-12 border border-white/10">
-            <h3 className="text-white mb-3" style={{ fontFamily: heading, fontWeight: 700, fontSize: "1.3rem" }}>
-              Vraag je proefles aan
-            </h3>
+            <div className="mb-6 text-center">
+              <h3 className="text-white" style={{ fontFamily: heading, fontWeight: 700, fontSize: "1.3rem", lineHeight: 1.2 }}>
+                Vraag je proefles aan
+              </h3>
+              <p className="mt-2 text-sm text-white/60" style={{ fontFamily: body, fontWeight: 400 }}>
+                Vul je gegevens in en we nemen zo snel mogelijk contact met je op.
+              </p>
+            </div>
 
             {submitState.type !== "idle" && (
               <div
@@ -195,7 +200,7 @@ export function FinalCTA() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 bg-gradient-to-r from-[#FD9F26] to-[#FD9F26] hover:from-[#FD9F26] hover:to-[#FD9F26] text-white rounded-xl transition-all duration-300 shadow-lg shadow-[#FD9F26]/20 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
+                className="w-full py-4 bg-[#FD9F26] hover:brightness-90 text-white rounded-xl transition-all duration-300 shadow-lg shadow-[#FD9F26]/20 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
                 style={{ fontFamily: body, fontWeight: 700 }}
               >
                 {isSubmitting ? "Bezig met verzenden..." : "Proefles aanvragen"}

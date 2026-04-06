@@ -8,3 +8,21 @@ body,
   overflow-x: hidden;
   width: 100%;
 }
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, -20px) scale(1.05); }
+}
+
+@keyframes floatCard {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-5px, -10px); }
+}
+
+@keyframes pricingFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pricingSlideUp { from { opacity: 0; transform: translateY(30px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes lessonFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes lessonSlideUp { from { opacity: 0; transform: translateY(30px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }

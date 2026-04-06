@@ -1,4 +1,6 @@
-import { useRef, useEffect, useState, type ReactNode } from "react";
+import { useLayoutEffect, useRef, type ReactNode } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -20,46 +22,79 @@ export function ScrollReveal({
   once = true,
 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          if (once && ref.current) observer.unobserve(ref.current);
-        } else if (!once) {
-          setIsVisible(false);
-        }
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [once]);
+  useLayoutEffect(() => {
+    const element = ref.current;
+    if (!element) return;
 
-  const getTransform = () => {
-    if (direction === "none") return "translate3d(0,0,0)";
-    const map = {
-      up: `translate3d(0, ${distance}px, 0)`,
-      down: `translate3d(0, -${distance}px, 0)`,
-      left: `translate3d(${distance}px, 0, 0)`,
-      right: `translate3d(-${distance}px, 0, 0)`,
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(element, { autoAlpha: 1, clearProps: "all" });
+      return;
+    }
+
+    const getOffset = () => {
+      if (direction === "none") return { x: 0, y: 0 };
+      const map = {
+        up: { x: 0, y: distance },
+        down: { x: 0, y: -distance },
+        left: { x: distance, y: 0 },
+        right: { x: -distance, y: 0 },
+      };
+      return map[direction];
     };
-    return map[direction];
-  };
+
+    const { x, y } = getOffset();
+    const animationDuration = Math.max(duration / 1000, 0.2);
+
+    const ctx = gsap.context(() => {
+      gsap.set(element, {
+        autoAlpha: 0,
+        x,
+        y,
+        willChange: "transform, opacity",
+      });
+
+      const tween = gsap.to(element, {
+        autoAlpha: 1,
+        x: 0,
+        y: 0,
+        duration: animationDuration,
+        delay: delay / 1000,
+        ease: "power3.out",
+        paused: true,
+        overwrite: "auto",
+        onComplete: () => {
+          gsap.set(element, { clearProps: "willChange" });
+        },
+      });
+
+      ScrollTrigger.create({
+        trigger: element,
+        start: "top bottom-=48px",
+        once,
+        onEnter: () => tween.restart(),
+        onEnterBack: () => {
+          if (!once) tween.restart();
+        },
+        onLeaveBack: () => {
+          if (!once) {
+            tween.pause(0);
+            gsap.set(element, {
+              autoAlpha: 0,
+              x,
+              y,
+              willChange: "transform, opacity",
+            });
+          }
+        },
+      });
+    }, element);
+
+    return () => ctx.revert();
+  }, [delay, direction, distance, duration, once]);
 
   return (
-    <div
-      ref={ref}
-      className={className}
-      style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translate3d(0,0,0)" : getTransform(),
-        transition: `opacity ${duration}ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, transform ${duration}ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
-        willChange: "opacity, transform",
-      }}
-    >
+    <div ref={ref} className={className}>
       {children}
     </div>
   );

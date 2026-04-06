@@ -47,7 +47,6 @@ type ReviewData = {
 export function Testimonials() {
   const [reviewData, setReviewData] = useState<ReviewData>(fallbackReviewData);
   const [isMobile, setIsMobile] = useState(false);
-  const [showAllReviews, setShowAllReviews] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -82,13 +81,7 @@ export function Testimonials() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  useEffect(() => {
-    if (!isMobile) {
-      setShowAllReviews(false);
-    }
-  }, [isMobile]);
-
-  const visibleReviews = isMobile && !showAllReviews
+  const visibleReviews = isMobile
     ? reviewData.reviews.slice(0, 3)
     : reviewData.reviews;
 
@@ -107,7 +100,7 @@ export function Testimonials() {
         <ScrollReveal>
           <div className="text-center mb-16">
             <span
-              className="inline-block text-[#FD9F26] bg-[#FD9F26]/12 px-5 py-2 rounded-full text-sm tracking-wide mb-5"
+              className="inline-block text-[#FD9F26] bg-[#FD9F26]/10 px-5 py-2 rounded-full text-sm tracking-wide mb-5"
               style={{ fontFamily: body, fontWeight: 600 }}
             >
               Reviews
@@ -209,7 +202,7 @@ export function Testimonials() {
                   "{review.text}"
                 </p>
                 <div className="flex items-center gap-3 pt-4 border-t border-white/8">
-                  <div className="w-9 h-9 bg-gradient-to-br from-[#FD9F26] to-[#FD9F26] rounded-xl flex items-center justify-center text-white text-xs shadow-md" style={{ fontFamily: heading, fontWeight: 700 }}>
+                  <div className="w-9 h-9 bg-[#FD9F26] rounded-xl flex items-center justify-center text-white text-xs shadow-md" style={{ fontFamily: heading, fontWeight: 700 }}>
                     {review.initials}
                   </div>
                   <div>
@@ -221,21 +214,6 @@ export function Testimonials() {
             </ScrollReveal>
           ))}
         </div>
-
-        {isMobile && reviewData.reviews.length > 3 && (
-          <ScrollReveal delay={260}>
-            <div className="text-center mt-8">
-              <button
-                type="button"
-                onClick={() => setShowAllReviews((value) => !value)}
-                className="inline-flex items-center gap-2.5 px-6 py-3 bg-white/10 hover:bg-white/15 text-white rounded-full transition-all duration-300 border border-white/15 hover:border-white/25"
-                style={{ fontFamily: body, fontWeight: 600 }}
-              >
-                {showAllReviews ? "Toon minder reviews" : "Toon meer reviews"}
-              </button>
-            </div>
-          </ScrollReveal>
-        )}
 
         {/* CTA to leave a review */}
         <ScrollReveal delay={400}>

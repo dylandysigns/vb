@@ -63,7 +63,7 @@ export function Header() {
             <a
               href="#proefles"
               onClick={(e) => handleClick(e, "#proefles")}
-              className="inline-flex items-center px-6 py-2.5 bg-[#FD9F26] hover:bg-[#FD9F26] text-white rounded-full transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
+              className="inline-flex items-center px-6 py-2.5 bg-[#FD9F26] hover:brightness-90 text-white rounded-full transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
               style={{ fontFamily: "'zeitung', 'Inter', sans-serif", fontWeight: 600, fontSize: "0.9rem" }}
             >
               Proefles aanvragen
@@ -136,7 +136,7 @@ export function Header() {
           <div className="pt-3">
             <a
               href="#proefles"
-              className="block text-center px-6 py-3.5 bg-[#FD9F26] hover:bg-[#FD9F26] text-white rounded-xl transition-all duration-300"
+              className="block text-center px-6 py-3.5 bg-[#FD9F26] hover:brightness-90 text-white rounded-xl transition-all duration-300"
               style={{ fontFamily: "'zeitung', 'Inter', sans-serif", fontWeight: 600 }}
               onClick={(e) => handleClick(e, "#proefles")}
             >

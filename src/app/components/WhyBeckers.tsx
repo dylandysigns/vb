@@ -33,7 +33,7 @@ const benefits = [
   {
     icon: Car,
     title: "Deskundige instructeurs",
-    description: "Wij zijn altijd up to date van de laatste ontwikkelingen en bijscholingen.",
+    description: "Wij zijn altijd up-to-date van de laatste ontwikkelingen en bijscholingen.",
   },
 ];
 
@@ -44,7 +44,7 @@ export function WhyBeckers() {
         <ScrollReveal>
           <div className="text-center mb-16">
             <span
-              className="inline-block text-[#FD9F26] bg-[#FD9F26]/10 px-5 py-2 rounded-full text-sm tracking-wide mb-5"
+              className="inline-block text-[#1956E3] bg-[#1956E3]/8 px-5 py-2 rounded-full text-sm tracking-wide mb-5"
               style={{ fontFamily: body, fontWeight: 600 }}
             >
               Waarom Beckers?

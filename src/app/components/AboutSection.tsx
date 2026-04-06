@@ -16,7 +16,7 @@ const highlights = [
 
 export function AboutSection() {
   return (
-    <section id="over-ons" className="py-24 bg-gray-50">
+    <section id="over-ons" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Image */}
@@ -33,8 +33,8 @@ export function AboutSection() {
                 <img src={visualLogo} alt="Beckers beeldmerk" className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 object-contain" />
               </div>
               {/* Experience badge */}
-              <div className="absolute -bottom-6 -right-4 sm:-right-6 bg-gradient-to-br from-[#1956E3] to-[#1956E3] text-white rounded-2xl p-6 shadow-2xl"
-                style={{ animation: "float 7s ease-in-out infinite" }}
+              <div className="absolute -bottom-6 -right-4 sm:-right-6 bg-[#1956E3] text-white rounded-2xl p-6 shadow-2xl"
+                style={{ animation: "floatCard 7s ease-in-out infinite" }}
               >
                 <p className="text-3xl tracking-tight" style={{ fontFamily: heading, fontWeight: 800 }}>Sinds</p>
                 <p className="text-4xl text-[#FD9F26] tracking-tight" style={{ fontFamily: heading, fontWeight: 800 }}>2007</p>
@@ -47,7 +47,7 @@ export function AboutSection() {
           <div>
             <ScrollReveal direction="right" distance={40}>
               <span
-                className="inline-block text-[#FD9F26] bg-[#FD9F26]/10 px-5 py-2 rounded-full text-sm tracking-wide mb-5"
+                className="inline-block text-[#1956E3] bg-[#1956E3]/8 px-5 py-2 rounded-full text-sm tracking-wide mb-5"
                 style={{ fontFamily: body, fontWeight: 600 }}
               >
                 Over ons
@@ -74,8 +74,8 @@ export function AboutSection() {
             <ScrollReveal direction="right" delay={300}>
               <p className="text-gray-500 mb-8 leading-relaxed" style={{ fontFamily: body, fontWeight: 400 }}>
                 Als familiebedrijf staat persoonlijk contact centraal. Wij bieden rijlessen voor
-                het autorijbewijs B (schakel) en het aanhangwagenrijbewijs BE. Bij ons krijg je
-                eerlijk advies, les op jouw niveau en een opleiding die bij jou past.
+                de auto (schakel) en de aanhanger. Bij ons krijg je eerlijk advies, les op jouw
+                niveau en een opleiding die bij jou past.
               </p>
             </ScrollReveal>
 
@@ -97,7 +97,7 @@ export function AboutSection() {
             <ScrollReveal direction="right" delay={500}>
               <a
                 href="#proefles"
-                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#1956E3] to-[#1956E3] hover:from-[#1956E3] hover:to-[#1956E3] text-white rounded-full transition-all duration-300 shadow-lg shadow-[#1956E3]/20 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
+                className="inline-flex items-center px-8 py-4 bg-[#1956E3] hover:brightness-90 text-white rounded-full transition-all duration-300 shadow-lg shadow-[#1956E3]/20 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
                 style={{ fontFamily: body, fontWeight: 600 }}
                 onClick={(e) => { e.preventDefault(); document.querySelector("#proefles")?.scrollIntoView({ behavior: "smooth" }); }}
               >
@@ -107,12 +107,6 @@ export function AboutSection() {
           </div>
         </div>
       </div>
-      <style>{`
-        @keyframes float {
-          0%, 100% { transform: translate(0, 0); }
-          50% { transform: translate(-5px, -10px); }
-        }
-      `}</style>
     </section>
   );
 }

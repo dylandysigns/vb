@@ -40,16 +40,11 @@ export function HeroSection() {
         style={{ background: "linear-gradient(152deg, #0b3d91 6%, #082e6e 41%, #051a44 94%)" }}
       >
         <div className="absolute inset-0">
-          <ImageWithFallback
-            src={heroImage}
-            alt="Rijles bij Verkeersschool Beckers"
-            className="absolute inset-0 h-full w-full object-cover object-center"
-          />
           <div
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(25, 86, 227, 1) 0%, rgba(25, 86, 227, 0.98) 22%, rgba(25, 86, 227, 0.9) 40%, rgba(25, 86, 227, 0.62) 58%, rgba(12, 44, 116, 0.78) 100%)",
+                "linear-gradient(180deg, rgba(25, 86, 227, 1) 0%, rgba(25, 86, 227, 0.98) 22%, rgba(25, 86, 227, 0.9) 40%, rgba(12, 44, 116, 0.92) 100%)",
             }}
           />
           <div
@@ -62,7 +57,7 @@ export function HeroSection() {
         </div>
 
         <div className="relative mx-auto flex min-h-[calc(100vh-88px)] max-w-7xl flex-col px-4 sm:px-6">
-          <div className="flex flex-1 items-center justify-center py-10 sm:py-14">
+          <div className="flex flex-1 items-start justify-center py-10 sm:py-14">
             <div className="mx-auto flex w-full max-w-[980px] flex-col items-center text-center">
               <ScrollReveal delay={80}>
                 <div className="mb-7 inline-flex items-center gap-3 rounded-full border border-white/12 bg-white/10 px-4 py-2.5 shadow-[0_10px_30px_rgba(15,23,42,0.08)] backdrop-blur-md sm:mb-8 sm:px-5 sm:py-3">
@@ -129,55 +124,63 @@ export function HeroSection() {
                 </div>
               </ScrollReveal>
 
-              <ScrollReveal delay={350}>
-                <div className="mt-4 inline-flex items-center gap-2 text-white/78">
-                  <HeroMetaIcon icon="star" />
-                  <span className="text-sm" style={{ fontFamily: body, fontWeight: 500 }}>
-                    5/5 op Google
-                  </span>
-                </div>
-              </ScrollReveal>
-
-              <ScrollReveal delay={360}>
-                <div className="mt-5 grid w-full max-w-[560px] gap-3">
-                  <div className="flex items-center gap-3 rounded-2xl bg-white p-4 text-[#1f2a37] shadow-[0_20px_48px_rgba(15,23,42,0.14)]">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#1956E3] to-[#1956E3]">
-                      <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="text-sm leading-snug text-gray-900" style={{ fontFamily: heading, fontWeight: 700 }}>
-                        Rijlessen voor auto en aanhanger
-                      </p>
+              <div className="mt-5 w-full max-w-[560px]">
+                <ScrollReveal delay={355}>
+                  <div className="w-full overflow-hidden rounded-2xl border border-white/12 bg-white/8 shadow-[0_24px_60px_rgba(7,24,66,0.24)] backdrop-blur-sm">
+                    <div className="overflow-hidden rounded-2xl">
+                      <ImageWithFallback
+                        src={heroImage}
+                        alt="Rijles bij Verkeersschool Beckers"
+                        className="h-[280px] w-full object-cover object-[center_40%]"
+                      />
                     </div>
                   </div>
+                </ScrollReveal>
 
-                  <div className="flex items-start gap-3.5 rounded-2xl bg-white p-4 text-[#1f2a37] shadow-[0_20px_48px_rgba(15,23,42,0.14)]">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#FD9F26] to-[#FD9F26] shadow-lg shadow-[#FD9F26]/20">
-                      <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
+                <ScrollReveal delay={360}>
+                  <div className="mt-5 grid w-full gap-3">
+                    <div className="flex items-center gap-3 rounded-2xl bg-white p-4 text-[#1f2a37] shadow-[0_20px_48px_rgba(15,23,42,0.14)]">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#1956E3] to-[#1956E3]">
+                        <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-sm leading-snug text-gray-900" style={{ fontFamily: heading, fontWeight: 700 }}>
+                          Rijlessen voor auto en aanhanger
+                        </p>
+                      </div>
                     </div>
-                    <div className="text-left">
-                      <p className="text-gray-900" style={{ fontFamily: heading, fontWeight: 700, fontSize: "0.95rem" }}>
-                        Flexibele lestijden
-                      </p>
-                      <p className="mt-1 text-sm leading-6 text-gray-500" style={{ fontFamily: body, fontWeight: 400 }}>
-                        Ma t/m do 8:00-16:30 en 18:00-20:00, vr 8:00-13:30
-                      </p>
+
+                    <div className="flex items-start gap-3.5 rounded-2xl bg-white p-4 text-[#1f2a37] shadow-[0_20px_48px_rgba(15,23,42,0.14)]">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#FD9F26] to-[#FD9F26] shadow-lg shadow-[#FD9F26]/20">
+                        <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div className="text-left">
+                        <p className="text-gray-900" style={{ fontFamily: heading, fontWeight: 700, fontSize: "0.95rem" }}>
+                          Flexibele lestijden
+                        </p>
+                        <p className="mt-1 text-sm leading-6 text-gray-500" style={{ fontFamily: body, fontWeight: 400 }}>
+                          Ma t/m do 8:00-16:30 en 18:00-20:00, vr 8:00-13:30
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-center gap-2.5 text-center">
+                      <HeroMetaIcon icon="star" />
+                      <span className="text-sm text-white/90" style={{ fontFamily: body, fontWeight: 500 }}>
+                        5/5 sterren op Google
+                      </span>
                     </div>
                   </div>
-                </div>
-              </ScrollReveal>
+                </ScrollReveal>
+              </div>
             </div>
           </div>
 
-          <ScrollReveal delay={400}>
-            <div className="pb-16 sm:pb-20">
-              <div className="mx-auto h-px max-w-[960px] bg-transparent" />
-            </div>
-          </ScrollReveal>
+          <div className="pb-10 sm:pb-12" />
         </div>
 
         <div className="absolute bottom-[-1px] left-0 right-0 pointer-events-none">
@@ -215,13 +218,6 @@ export function HeroSection() {
             }}
           />
         </div>
-
-        <style>{`
-          @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(20px, -20px) scale(1.05); }
-          }
-        `}</style>
 
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">

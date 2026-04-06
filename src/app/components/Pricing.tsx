@@ -39,7 +39,7 @@ const cards = [
     name: "Aanhanger Dagcursus",
     price: "700",
     description: "6 uur les + praktijkexamen",
-    highlight: "Rijbewijs BE",
+    highlight: "€ 50,- korting",
     features: ["6 uur rijles", "Praktijkexamen BE inbegrepen", "Les en examen op dezelfde dag"],
     popular: false,
   },
@@ -70,7 +70,7 @@ const tabs = [
       { name: "30 uur les incl. TTT + praktijkexamen", price: "€ 2.580,-", note: "€ 80,- korting" },
       { name: "35 uur les incl. TTT + praktijkexamen", price: "€ 2.925,-", note: "€ 85,- korting" },
       { name: "40 uur les incl. TTT + praktijkexamen", price: "€ 3.270,-", note: "€ 90,- korting" },
-      { name: "Dagcursus BE (6 uur les + praktijkexamen)", price: "€ 700,-" },
+      { name: "Dagcursus BE (6 uur les + praktijkexamen)", price: "€ 700,-", note: "€ 50,- korting" },
     ],
     note: "Betalen in 2 maandelijkse termijnen is in overleg mogelijk",
   },
@@ -183,13 +183,13 @@ export function Pricing() {
                     }}
                     className={`relative rounded-3xl p-8 transition-all duration-400 h-full cursor-pointer flex flex-col ${
                       pkg.popular
-                        ? "bg-gradient-to-br from-[#1956E3] to-[#1956E3] text-white shadow-2xl shadow-[#1956E3]/20 ring-2 ring-[#FD9F26] scale-[1.03] z-10 hover:scale-[1.04]"
+                        ? "bg-[#1956E3] text-white shadow-2xl shadow-[#1956E3]/20 ring-2 ring-[#FD9F26] scale-[1.03] z-10 hover:scale-[1.04]"
                         : "bg-white border border-gray-200 shadow-sm hover:shadow-lg hover:-translate-y-1"
                     }`}
                   >
                     {pkg.popular && (
                       <span
-                        className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#FD9F26] to-[#FD9F26] text-white text-xs px-5 py-1.5 rounded-full shadow-lg"
+                        className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#FD9F26] text-white text-xs px-5 py-1.5 rounded-full shadow-lg"
                         style={{ fontFamily: body, fontWeight: 600, letterSpacing: "0.02em" }}
                       >
                         Meest gekozen
@@ -400,7 +400,7 @@ export function Pricing() {
                   setModalOpen(false);
                   setTimeout(() => document.querySelector("#proefles")?.scrollIntoView({ behavior: "smooth" }), 100);
                 }}
-                className="w-full block text-center py-3.5 bg-[#FD9F26] hover:bg-[#FD9F26] text-white rounded-xl transition-all duration-300 hover:shadow-lg"
+                className="w-full block text-center py-3.5 bg-[#FD9F26] hover:brightness-90 text-white rounded-xl transition-all duration-300 hover:shadow-lg"
                 style={{ fontFamily: body, fontWeight: 600 }}
               >
                 Proefles aanvragen
@@ -410,12 +410,6 @@ export function Pricing() {
         </div>
       )}
 
-      <style>{`
-        @keyframes pricingFadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes pricingSlideUp { from { opacity: 0; transform: translateY(30px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-      `}</style>
     </>
   );
 }

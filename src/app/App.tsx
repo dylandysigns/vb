@@ -8,6 +8,7 @@ import { Locations } from "./components/Locations";
 import { Testimonials } from "./components/Testimonials";
 import { FAQ } from "./components/FAQ";
 import { FinalCTA } from "./components/FinalCTA";
+import { InstagramFeed } from "./components/InstagramFeed";
 import { Footer } from "./components/Footer";
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
         <AboutSection />
         <Locations />
         <Testimonials />
+        <InstagramFeed />
         <FAQ />
         <FinalCTA />
       </main>
