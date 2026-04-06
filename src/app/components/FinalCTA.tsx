@@ -150,7 +150,7 @@ export function FinalCTA() {
                   name="firstName"
                   placeholder="Voornaam"
                   required
-                  className="w-full px-5 py-3.5 bg-white/8 border border-white/15 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#FD9F26] focus:bg-white/12 transition-all duration-300"
+                  className="w-full px-5 py-3.5 bg-white/8 border border-white/15 rounded-full text-white placeholder-white/40 focus:outline-none focus:border-[#FD9F26] focus:bg-white/12 transition-all duration-300"
                   style={{ fontFamily: body }}
                 />
                 <input
@@ -158,7 +158,7 @@ export function FinalCTA() {
                   name="lastName"
                   placeholder="Achternaam"
                   required
-                  className="w-full px-5 py-3.5 bg-white/8 border border-white/15 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#FD9F26] focus:bg-white/12 transition-all duration-300"
+                  className="w-full px-5 py-3.5 bg-white/8 border border-white/15 rounded-full text-white placeholder-white/40 focus:outline-none focus:border-[#FD9F26] focus:bg-white/12 transition-all duration-300"
                   style={{ fontFamily: body }}
                 />
               </div>
@@ -168,7 +168,7 @@ export function FinalCTA() {
                   name="email"
                   placeholder="E-mailadres"
                   required
-                  className="w-full px-5 py-3.5 bg-white/8 border border-white/15 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#FD9F26] focus:bg-white/12 transition-all duration-300"
+                  className="w-full px-5 py-3.5 bg-white/8 border border-white/15 rounded-full text-white placeholder-white/40 focus:outline-none focus:border-[#FD9F26] focus:bg-white/12 transition-all duration-300"
                   style={{ fontFamily: body }}
                 />
                 <input
@@ -176,7 +176,7 @@ export function FinalCTA() {
                   name="phone"
                   placeholder="Telefoonnummer"
                   required
-                  className="w-full px-5 py-3.5 bg-white/8 border border-white/15 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#FD9F26] focus:bg-white/12 transition-all duration-300"
+                  className="w-full px-5 py-3.5 bg-white/8 border border-white/15 rounded-full text-white placeholder-white/40 focus:outline-none focus:border-[#FD9F26] focus:bg-white/12 transition-all duration-300"
                   style={{ fontFamily: body }}
                 />
               </div>
@@ -184,7 +184,7 @@ export function FinalCTA() {
                 type="text"
                 name="city"
                 placeholder="Woonplaats"
-                className="w-full px-5 py-3.5 bg-white/8 border border-white/15 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#FD9F26] focus:bg-white/12 transition-all duration-300"
+                className="w-full px-5 py-3.5 bg-white/8 border border-white/15 rounded-full text-white placeholder-white/40 focus:outline-none focus:border-[#FD9F26] focus:bg-white/12 transition-all duration-300"
                 style={{ fontFamily: body }}
               />
 
@@ -193,14 +193,14 @@ export function FinalCTA() {
                 name="message"
                 placeholder="Heb je een vraag of opmerking? Laat het hier weten (optioneel)"
                 rows={3}
-                className="w-full px-5 py-3.5 bg-white/8 border border-white/15 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#FD9F26] focus:bg-white/12 transition-all duration-300 resize-none"
+                className="w-full px-5 py-3.5 bg-white/8 border border-white/15 rounded-[1.75rem] text-white placeholder-white/40 focus:outline-none focus:border-[#FD9F26] focus:bg-white/12 transition-all duration-300 resize-none"
                 style={{ fontFamily: body }}
               />
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 bg-[#FD9F26] hover:brightness-90 text-white rounded-xl transition-all duration-300 shadow-lg shadow-[#FD9F26]/20 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
+                className="w-full py-4 bg-[#FD9F26] hover:brightness-90 text-white rounded-full transition-all duration-300 shadow-lg shadow-[#FD9F26]/20 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
                 style={{ fontFamily: body, fontWeight: 700 }}
               >
                 {isSubmitting ? "Bezig met verzenden..." : "Proefles aanvragen"}

@@ -165,12 +165,12 @@ export function LessonCards() {
                   {selectedLesson.modalTitle}
                 </h3>
               </div>
-              <button
-                onClick={() => setSelectedLesson(null)}
-                className="p-2 hover:bg-gray-100 rounded-xl transition-colors duration-200 -mr-1"
-              >
-                <X className="w-5 h-5 text-gray-400" />
-              </button>
+	              <button
+	                onClick={() => setSelectedLesson(null)}
+	                className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200 -mr-1"
+	              >
+	                <X className="w-5 h-5 text-gray-400" />
+	              </button>
             </div>
 
             {/* Content */}
@@ -196,23 +196,23 @@ export function LessonCards() {
               </div>
 
               {/* CTA buttons */}
-              <button
-                onClick={() => scrollToPricingTab(selectedLesson.pricingTabId)}
-                className="w-full flex items-center justify-center gap-2.5 py-3.5 bg-[#FD9F26] hover:brightness-90 text-white rounded-xl transition-all duration-300 hover:shadow-lg shadow-lg shadow-[#FD9F26]/20 group/cta"
-                style={{ fontFamily: body, fontWeight: 600 }}
-              >
+	              <button
+	                onClick={() => scrollToPricingTab(selectedLesson.pricingTabId)}
+	                className="w-full flex items-center justify-center gap-2.5 py-3.5 bg-[#FD9F26] hover:brightness-90 text-white rounded-full transition-all duration-300 hover:shadow-lg shadow-lg shadow-[#FD9F26]/20 group/cta"
+	                style={{ fontFamily: body, fontWeight: 600 }}
+	              >
                 {selectedLesson.pricingTabLabel}
                 <ArrowDown className="w-4 h-4 transition-transform duration-300 group-hover/cta:translate-y-0.5" />
               </button>
 
-              <button
-                onClick={() => {
-                  setSelectedLesson(null);
-                  setTimeout(() => document.querySelector("#proefles")?.scrollIntoView({ behavior: "smooth" }), 100);
-                }}
-                className="w-full flex items-center justify-center gap-2 py-3 border border-gray-200 hover:border-[#1956E3]/30 text-gray-500 hover:text-[#1956E3] bg-transparent hover:bg-[#1956E3]/5 rounded-xl transition-all duration-300"
-                style={{ fontFamily: body, fontWeight: 600 }}
-              >
+	              <button
+	                onClick={() => {
+	                  setSelectedLesson(null);
+	                  setTimeout(() => document.querySelector("#proefles")?.scrollIntoView({ behavior: "smooth" }), 100);
+	                }}
+	                className="w-full flex items-center justify-center gap-2 py-3 border border-gray-200 hover:border-[#1956E3]/30 text-gray-500 hover:text-[#1956E3] bg-transparent hover:bg-[#1956E3]/5 rounded-full transition-all duration-300"
+	                style={{ fontFamily: body, fontWeight: 600 }}
+	              >
                 Direct aanvragen
                 <ArrowRight className="w-4 h-4" />
               </button>

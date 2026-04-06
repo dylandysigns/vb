@@ -309,9 +309,9 @@ export function Pricing() {
                 </h3>
                 <p className="text-gray-400 text-sm" style={{ fontFamily: body }}>Verkeersschool Beckers, overzicht van al onze prijzen</p>
               </div>
-              <button onClick={() => setModalOpen(false)} className="p-2 hover:bg-gray-100 rounded-xl transition-colors duration-200">
-                <X className="w-5 h-5 text-gray-400" />
-              </button>
+	              <button onClick={() => setModalOpen(false)} className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200">
+	                <X className="w-5 h-5 text-gray-400" />
+	              </button>
             </div>
 
             {/* Tabs with scroll indicators on mobile */}
@@ -395,14 +395,14 @@ export function Pricing() {
 
             {/* Modal footer */}
             <div className="px-5 sm:px-7 py-5 border-t border-gray-100 bg-gray-50/50">
-              <button
-                onClick={() => {
-                  setModalOpen(false);
-                  setTimeout(() => document.querySelector("#proefles")?.scrollIntoView({ behavior: "smooth" }), 100);
-                }}
-                className="w-full block text-center py-3.5 bg-[#FD9F26] hover:brightness-90 text-white rounded-xl transition-all duration-300 hover:shadow-lg"
-                style={{ fontFamily: body, fontWeight: 600 }}
-              >
+	              <button
+	                onClick={() => {
+	                  setModalOpen(false);
+	                  setTimeout(() => document.querySelector("#proefles")?.scrollIntoView({ behavior: "smooth" }), 100);
+	                }}
+	                className="w-full block text-center py-3.5 bg-[#FD9F26] hover:brightness-90 text-white rounded-full transition-all duration-300 hover:shadow-lg"
+	                style={{ fontFamily: body, fontWeight: 600 }}
+	              >
                 Proefles aanvragen
               </button>
             </div>

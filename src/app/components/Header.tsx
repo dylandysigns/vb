@@ -136,7 +136,7 @@ export function Header() {
           <div className="pt-3">
             <a
               href="#proefles"
-              className="block text-center px-6 py-3.5 bg-[#FD9F26] hover:brightness-90 text-white rounded-xl transition-all duration-300"
+              className="block text-center px-6 py-3.5 bg-[#FD9F26] hover:brightness-90 text-white rounded-full transition-all duration-300"
               style={{ fontFamily: "'zeitung', 'Inter', sans-serif", fontWeight: 600 }}
               onClick={(e) => handleClick(e, "#proefles")}
             >
