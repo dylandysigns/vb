@@ -23,5 +23,5 @@
 
   If omitted, the refresh script already defaults to `verkeersschoolbeckers`.
 
-  A GitHub Action refreshes the static feed every 3 hours and commits the updated JSON and cached images back into the repo.
+  A GitHub Action refreshes the static feed every 24 hours and commits the updated JSON and cached images back into the repo.
   
