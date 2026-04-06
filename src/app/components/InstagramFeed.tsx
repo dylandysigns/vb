@@ -56,9 +56,9 @@ const fallbackPosts: InstagramPost[] = [
 ];
 
 async function fetchInstagramPosts(): Promise<InstagramPost[]> {
-  const response = await fetch("/api/instagram-feed", { cache: "no-store" });
+  const response = await fetch("/instagram-feed.json", { cache: "no-store" });
   if (!response.ok) {
-    throw new Error(`Instagram API error: ${response.status}`);
+    throw new Error(`Instagram feed error: ${response.status}`);
   }
 
   const payload = (await response.json()) as { posts?: InstagramPost[] };
@@ -75,10 +75,6 @@ function formatDate(iso: string) {
 
 function truncate(text: string, max: number) {
   return text.length > max ? `${text.slice(0, max).trimEnd()}…` : text;
-}
-
-function getProxyImageUrl(url: string) {
-  return `/api/instagram-image?url=${encodeURIComponent(url)}`;
 }
 
 function SkeletonCard() {
@@ -143,7 +139,7 @@ function PostCard({ post }: { post: InstagramPost }) {
     >
       <div className="relative aspect-square overflow-hidden bg-[#edf4ff]">
         <img
-          src={getProxyImageUrl(post.imageUrl)}
+          src={post.imageUrl}
           alt={post.caption ? truncate(post.caption, 100) : "Instagram post van Verkeersschool Beckers"}
           className="h-full w-full object-cover transition-transform duration-500 will-change-transform group-hover:scale-[1.03]"
           loading="lazy"
@@ -258,10 +254,10 @@ export function InstagramFeed() {
                 className="mt-5 text-4xl tracking-[-0.03em] text-[#071842] sm:text-5xl lg:text-[3.1rem]"
                 style={{ fontFamily: heading, fontWeight: 900 }}
               >
-                Geslaagde leerlingen, blije gezichten en Beckers-momenten
+                Deze geslaagde leerlingen gingen je voor bij Beckers
               </h2>
               <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-gray-500" style={{ fontFamily: body, fontWeight: 500 }}>
-                Op Instagram delen we vooral onze geslaagde leerlingen. Swipe door de nieuwste felicitaties en open elke post direct op Instagram.
+                Van eerste examen tot rijbewijs op zak: ontdek de nieuwste felicitaties van leerlingen die hun doel haalden bij Verkeersschool Beckers.
               </p>
 
               <ScrollReveal delay={140}>

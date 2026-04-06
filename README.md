@@ -11,13 +11,17 @@
 
   ## Instagram feed
 
-  The Instagram section reads the latest posts from the public Instagram profile server-side.
+  The Instagram section reads from a static `public/instagram-feed.json` file and local cached images in `public/instagram-cache`.
 
-  Optional value for your local env or Vercel project settings:
+  Refresh the feed locally with:
+
+  `npm run instagram:refresh`
+
+  Optional value for local refreshes:
 
   `INSTAGRAM_USERNAME=verkeersschoolbeckers`
 
-  If omitted, the site already defaults to `verkeersschoolbeckers`.
+  If omitted, the refresh script already defaults to `verkeersschoolbeckers`.
 
-  The feed is cached for 48 hours and shown in a manual carousel on the website.
+  A GitHub Action refreshes the static feed every 3 hours and commits the updated JSON and cached images back into the repo.
   
