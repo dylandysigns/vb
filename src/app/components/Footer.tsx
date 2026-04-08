@@ -30,7 +30,7 @@ export function Footer() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12">
             {/* Logo & description */}
             <div className="sm:col-span-2 lg:col-span-1">
-              <BrandLogo className="mb-5 h-11 w-auto brightness-0 invert" />
+              <BrandLogo variant="white" className="mb-5 h-11 w-auto" />
               <p className="text-gray-500 text-sm leading-relaxed mb-6" style={{ fontFamily: body, fontWeight: 400 }}>
                 Verkeersschool Beckers, een familiebedrijf sinds 2007. Jouw partner voor betrouwbare en persoonlijke rijlessen in Zaltbommel en omstreken.
               </p>
