@@ -41,7 +41,7 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-[72px]">
           <a href="#home" onClick={(e) => handleClick(e, "#home")} className="flex-shrink-0 transition-transform duration-300 hover:scale-105">
-            <BrandLogo priority className="h-10 w-auto sm:h-12" />
+            <BrandLogo priority className="h-8.5 w-auto sm:h-10" />
           </a>
 
           <nav className="hidden lg:flex items-center gap-7">
