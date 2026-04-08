@@ -1,15 +1,31 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { ChevronDown } from "lucide-react";
 import { ScrollReveal } from "./ScrollReveal";
 
 const heading = "'zeitung', 'Inter', sans-serif";
 const body = "'zeitung', 'Inter', sans-serif";
 
-const faqs = [
-  { question: "Vanaf welke leeftijd kan ik beginnen met rijlessen?", answer: "Je mag in Nederland beginnen met autorijlessen vanaf 16,5 jaar. Je praktijkexamen mag je afleggen vanaf 17 jaar. Onder de 18 rijd je dan eerst met een begeleiderspas (2toDrive)." },
+const faqs: { question: string; answer: ReactNode }[] = [
+  {
+    question: "Vanaf welke leeftijd kan ik beginnen met lessen?",
+    answer: (
+      <>
+        Je mag in Nederland beginnen met autorijlessen vanaf 16,5 jaar. Je praktijkexamen mag je afleggen vanaf 17 jaar. Wanneer je je rijbewijs onder de 18 haalt, rijd je eerst met een begeleider. Kijk voor meer informatie op{" "}
+        <a
+          href="https://www.2todrive.nl/"
+          target="_blank"
+          rel="noreferrer"
+          className="font-semibold text-[#1956E3] underline decoration-[#1956E3]/30 underline-offset-4 transition-colors duration-300 hover:text-[#FD9F26]"
+        >
+          2toDrive
+        </a>
+        .
+      </>
+    ),
+  },
   { question: "Hoeveel rijlessen heb ik gemiddeld nodig?", answer: "Het landelijke gemiddelde ligt tussen de 40 en 45 lesuren. Dit verschilt per persoon, de een heeft meer tijd nodig dan de ander. Tijdens de proefles maken we een inschatting van het aantal lessen dat je nodig hebt." },
   { question: "Hoe vaak kan ik per week lessen?", answer: "Je kunt bij ons 1x per week lessen. We beginnen meestal met lessen van 1 uur. Later in de rijopleiding lessen we meestal 1,5 uur." },
-  { question: "Wat zijn jullie lestijden?", answer: "Onze lestijden zijn maandag t/m donderdag van 8:00-16:30 en van 18:00-20:00. Op vrijdag lessen we van 8:00-13:30." },
+  { question: "Wat zijn jullie lestijden?", answer: "Onze lestijden zijn maandag t/m donderdag van 08:00 - 16:30 en van 18:00 - 20:00. Op vrijdag lessen we van 08:00 - 13:30." },
   { question: "Hoe vraag ik een proefles aan?", answer: "Je kunt een proefles aanvragen via het formulier op onze website, door te bellen naar Mitchell (06 38 68 71 55) of Rodney (06 34 04 20 48), of via WhatsApp. We nemen snel contact met je op om een afspraak in te plannen." },
   { question: "Wat kost een rijles bij Verkeersschool Beckers?", answer: "Een losse rijles van 60 minuten kost € 70,-. We bieden ook voordelige lespakketten aan vanaf € 2.580,-. Bekijk onze tarievenpagina voor alle prijzen." },
   { question: "Wat houdt de proefles precies in?", answer: "Tijdens de proefles maak je kennis met de instructeur en de lesauto. Het doel van de proefles is vooral vertrouwen winnen. Wanneer je nog geen ervaring hebt met autorijden beginnen we slechts met het sturen, gas geven en richting aangeven. Vanuit daar bouwen we het verder op. Heb je al wel ervaring met autorijden, dan passen we het aan jouw niveau aan. Na de proefles geven we een eerlijk advies over het verwachte aantal lessen. De proefles kost €60,-." },

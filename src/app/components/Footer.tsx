@@ -1,6 +1,6 @@
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import logo from "../../assets/866a497a9b00e621a1fd3a06b52178b660fb5a92.png";
 import { ScrollReveal } from "./ScrollReveal";
+import { BrandLogo } from "./BrandLogo";
 
 const heading = "'zeitung', 'Inter', sans-serif";
 const body = "'zeitung', 'Inter', sans-serif";
@@ -30,7 +30,7 @@ export function Footer() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12">
             {/* Logo & description */}
             <div className="sm:col-span-2 lg:col-span-1">
-              <img src={logo} alt="Verkeersschool Beckers" className="h-11 w-auto mb-5 brightness-0 invert" />
+              <BrandLogo className="mb-5 h-11 w-auto brightness-0 invert" />
               <p className="text-gray-500 text-sm leading-relaxed mb-6" style={{ fontFamily: body, fontWeight: 400 }}>
                 Verkeersschool Beckers, een familiebedrijf sinds 2007. Jouw partner voor betrouwbare en persoonlijke rijlessen in Zaltbommel en omstreken.
               </p>

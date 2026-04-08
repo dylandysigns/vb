@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, MessageCircle, X } from "lucide-react";
-import logo from "../../assets/866a497a9b00e621a1fd3a06b52178b660fb5a92.png";
+import { BrandLogo } from "./BrandLogo";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -41,7 +41,7 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-[72px]">
           <a href="#home" onClick={(e) => handleClick(e, "#home")} className="flex-shrink-0 transition-transform duration-300 hover:scale-105">
-            <img src={logo} alt="Verkeersschool Beckers" className="h-10 sm:h-12 w-auto" />
+            <BrandLogo priority className="h-10 w-auto sm:h-12" />
           </a>
 
           <nav className="hidden lg:flex items-center gap-7">

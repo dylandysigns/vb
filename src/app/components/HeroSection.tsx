@@ -163,7 +163,8 @@ export function HeroSection() {
                           Flexibele lestijden
                         </p>
                         <p className="mt-1 text-sm leading-6 text-gray-500" style={{ fontFamily: body, fontWeight: 400 }}>
-                          Ma t/m do 8:00-16:30 en 18:00-20:00, vr 8:00-13:30
+                          <span className="block">Ma t/m do: 08:00 - 16:30 en 18:00 - 20:00</span>
+                          <span className="mt-0.5 block">Vrijdag: 08:00 - 13:30</span>
                         </p>
                       </div>
                     </div>
@@ -318,7 +319,8 @@ export function HeroSection() {
                       Flexibele lestijden
                     </p>
                     <p className="leading-snug text-gray-500" style={{ fontFamily: body, fontWeight: 400, fontSize: "0.78rem" }}>
-                      Ma t/m do 8:00-16:30 en 18:00-20:00, vr 8:00-13:30
+                      <span className="block">Ma t/m do: 08:00 - 16:30 en 18:00 - 20:00</span>
+                      <span className="mt-0.5 block">Vrijdag: 08:00 - 13:30</span>
                     </p>
                   </div>
                 </div>

@@ -18,7 +18,7 @@ const benefits = [
   {
     icon: Clock,
     title: "Flexibele lestijden",
-    description: "Onze lestijden zijn ma t/m do 8:00-16:30 en 18:00-20:00 en vrijdag 8:00-13:30.",
+    description: "Lessen van maandag t/m donderdag van 08:00 - 16:30 en 18:00 - 20:00. Op vrijdag lessen we van 08:00 - 13:30.",
   },
   {
     icon: Car,
