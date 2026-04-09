@@ -13,6 +13,8 @@ const INSTAGRAM_USERNAME = process.env.INSTAGRAM_USERNAME || "verkeersschoolbeck
 const INSTAGRAM_WEB_PROFILE_ENDPOINT = `https://www.instagram.com/api/v1/users/web_profile_info/?username=${INSTAGRAM_USERNAME}`;
 const INSTAGRAM_WEB_APP_ID = "936619743392459";
 const INSTAGRAM_POST_LIMIT = 12;
+const FETCH_RETRY_ATTEMPTS = 3;
+const FETCH_RETRY_DELAY_MS = 1500;
 
 function extensionFromContentType(contentType = "") {
   if (contentType.includes("png")) return "png";
@@ -23,6 +25,32 @@ function extensionFromContentType(contentType = "") {
 
 function fallbackCaption() {
   return "Bekijk deze post op Instagram.";
+}
+
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function fetchWithRetry(url, options, label) {
+  let lastError;
+
+  for (let attempt = 1; attempt <= FETCH_RETRY_ATTEMPTS; attempt += 1) {
+    try {
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        throw new Error(`${label} failed with status ${response.status}`);
+      }
+      return response;
+    } catch (error) {
+      lastError = error;
+
+      if (attempt < FETCH_RETRY_ATTEMPTS) {
+        await delay(FETCH_RETRY_DELAY_MS * attempt);
+      }
+    }
+  }
+
+  throw lastError;
 }
 
 function toIsoDate(timestamp) {
@@ -50,18 +78,14 @@ function normalizePost(node) {
 }
 
 async function fetchInstagramFeed() {
-  const response = await fetch(INSTAGRAM_WEB_PROFILE_ENDPOINT, {
+  const response = await fetchWithRetry(INSTAGRAM_WEB_PROFILE_ENDPOINT, {
     headers: {
       "user-agent": "Mozilla/5.0",
       accept: "*/*",
       "x-ig-app-id": INSTAGRAM_WEB_APP_ID,
       referer: `https://www.instagram.com/${INSTAGRAM_USERNAME}/`,
     },
-  });
-
-  if (!response.ok) {
-    throw new Error(`Instagram profile request failed with status ${response.status}`);
-  }
+  }, "Instagram profile request");
 
   const payload = await response.json();
   const edges = payload?.data?.user?.edge_owner_to_timeline_media?.edges;
@@ -77,17 +101,13 @@ async function fetchInstagramFeed() {
 }
 
 async function downloadImage(url, fileBaseName) {
-  const response = await fetch(url, {
+  const response = await fetchWithRetry(url, {
     headers: {
       "user-agent": "Mozilla/5.0",
       accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
       referer: "https://www.instagram.com/",
     },
-  });
-
-  if (!response.ok) {
-    throw new Error(`Instagram image request failed with status ${response.status}`);
-  }
+  }, "Instagram image request");
 
   const extension = extensionFromContentType(response.headers.get("content-type") || "");
   const fileName = `${fileBaseName}.${extension}`;

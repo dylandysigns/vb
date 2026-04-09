@@ -8,9 +8,14 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: refresh-instagram-feed
+  cancel-in-progress: false
+
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Checkout repository
@@ -30,7 +35,7 @@ jobs:
 
       - name: Commit updated feed
         run: |
-          if git diff --quiet -- public/instagram-feed.json public/instagram-cache; then
+          if [ -z "$(git status --porcelain -- public/instagram-feed.json public/instagram-cache)" ]; then
             echo "No Instagram changes to commit"
             exit 0
           fi
