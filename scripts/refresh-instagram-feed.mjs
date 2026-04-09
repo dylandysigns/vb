@@ -13,8 +13,9 @@ const INSTAGRAM_USERNAME = process.env.INSTAGRAM_USERNAME || "verkeersschoolbeck
 const INSTAGRAM_WEB_PROFILE_ENDPOINT = `https://www.instagram.com/api/v1/users/web_profile_info/?username=${INSTAGRAM_USERNAME}`;
 const INSTAGRAM_WEB_APP_ID = "936619743392459";
 const INSTAGRAM_POST_LIMIT = 12;
-const FETCH_RETRY_ATTEMPTS = 3;
+const FETCH_RETRY_ATTEMPTS = 4;
 const FETCH_RETRY_DELAY_MS = 1500;
+const IMAGE_DOWNLOAD_DELAY_MS = 350;
 
 function extensionFromContentType(contentType = "") {
   if (contentType.includes("png")) return "png";
@@ -38,6 +39,13 @@ async function fetchWithRetry(url, options, label) {
     try {
       const response = await fetch(url, options);
       if (!response.ok) {
+        if (response.status === 429 && attempt < FETCH_RETRY_ATTEMPTS) {
+          const waitTime = FETCH_RETRY_DELAY_MS * 2 ** (attempt - 1);
+          console.warn(`${label} was rate limited (429). Retrying in ${waitTime}ms...`);
+          await delay(waitTime);
+          continue;
+        }
+
         throw new Error(`${label} failed with status ${response.status}`);
       }
       return response;
@@ -45,7 +53,9 @@ async function fetchWithRetry(url, options, label) {
       lastError = error;
 
       if (attempt < FETCH_RETRY_ATTEMPTS) {
-        await delay(FETCH_RETRY_DELAY_MS * attempt);
+        const waitTime = FETCH_RETRY_DELAY_MS * attempt;
+        console.warn(`${label} failed on attempt ${attempt}. Retrying in ${waitTime}ms...`);
+        await delay(waitTime);
       }
     }
   }
@@ -155,6 +165,7 @@ async function main() {
 
     if (!imageUrl) {
       imageUrl = await downloadImage(post.sourceImageUrl, post.id);
+      await delay(IMAGE_DOWNLOAD_DELAY_MS);
     }
 
     validFiles.add(path.basename(imageUrl));
