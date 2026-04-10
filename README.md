@@ -24,4 +24,6 @@
   If omitted, the refresh script already defaults to `verkeersschoolbeckers`.
 
   A GitHub Action refreshes the static feed every 24 hours and commits the updated JSON and cached images back into the repo.
+
+  Instagram sometimes rate-limits GitHub runner IPs with `429`. When that happens, the workflow keeps the existing cached feed instead of failing the deployment pipeline. A local refresh from this machine is still the most reliable fallback because it uses your own network instead of GitHub's shared runner IPs.
   

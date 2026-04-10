@@ -13,9 +13,18 @@ const INSTAGRAM_USERNAME = process.env.INSTAGRAM_USERNAME || "verkeersschoolbeck
 const INSTAGRAM_WEB_PROFILE_ENDPOINT = `https://www.instagram.com/api/v1/users/web_profile_info/?username=${INSTAGRAM_USERNAME}`;
 const INSTAGRAM_WEB_APP_ID = "936619743392459";
 const INSTAGRAM_POST_LIMIT = 12;
-const FETCH_RETRY_ATTEMPTS = 4;
-const FETCH_RETRY_DELAY_MS = 1500;
-const IMAGE_DOWNLOAD_DELAY_MS = 350;
+const FETCH_RETRY_ATTEMPTS = 5;
+const FETCH_RETRY_DELAY_MS = 15000;
+const IMAGE_DOWNLOAD_DELAY_MS = 1000;
+const ALLOW_STALE_INSTAGRAM_ON_FAILURE = process.env.ALLOW_STALE_INSTAGRAM_ON_FAILURE === "true";
+
+class HttpStatusError extends Error {
+  constructor(label, status) {
+    super(`${label} failed with status ${status}`);
+    this.name = "HttpStatusError";
+    this.status = status;
+  }
+}
 
 function extensionFromContentType(contentType = "") {
   if (contentType.includes("png")) return "png";
@@ -40,13 +49,16 @@ async function fetchWithRetry(url, options, label) {
       const response = await fetch(url, options);
       if (!response.ok) {
         if (response.status === 429 && attempt < FETCH_RETRY_ATTEMPTS) {
-          const waitTime = FETCH_RETRY_DELAY_MS * 2 ** (attempt - 1);
+          const retryAfterSeconds = Number(response.headers.get("retry-after"));
+          const waitTime = Number.isFinite(retryAfterSeconds)
+            ? retryAfterSeconds * 1000
+            : FETCH_RETRY_DELAY_MS * 2 ** (attempt - 1);
           console.warn(`${label} was rate limited (429). Retrying in ${waitTime}ms...`);
           await delay(waitTime);
           continue;
         }
 
-        throw new Error(`${label} failed with status ${response.status}`);
+        throw new HttpStatusError(label, response.status);
       }
       return response;
     } catch (error) {
@@ -156,7 +168,19 @@ async function main() {
       .map((post) => [post.id, post.imageUrl]),
   );
 
-  const posts = await fetchInstagramFeed();
+  let posts;
+  try {
+    posts = await fetchInstagramFeed();
+  } catch (error) {
+    if (ALLOW_STALE_INSTAGRAM_ON_FAILURE && currentPosts.length > 0) {
+      console.warn(
+        `Instagram feed refresh failed (${error.message}). Keeping the existing cached feed instead.`,
+      );
+      return;
+    }
+
+    throw error;
+  }
   const validFiles = new Set();
 
   const cachedPosts = [];

@@ -31,6 +31,8 @@ jobs:
         run: npm ci
 
       - name: Refresh Instagram feed
+        env:
+          ALLOW_STALE_INSTAGRAM_ON_FAILURE: "true"
         run: npm run instagram:refresh
 
       - name: Commit updated feed
