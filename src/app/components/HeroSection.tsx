@@ -306,8 +306,7 @@ export function HeroSection() {
                 </div>
 
                 <div
-                  className="absolute -bottom-5 -left-5 flex max-w-none items-start gap-3.5 rounded-2xl bg-white p-5 shadow-2xl transition-transform duration-500 hover:-translate-y-1"
-                  style={{ animation: "float 6s ease-in-out infinite" }}
+                  className="absolute -bottom-5 -left-5 flex max-w-none items-start gap-3.5 rounded-2xl bg-white p-5 shadow-2xl"
                 >
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center self-start rounded-xl bg-gradient-to-br from-[#FD9F26] to-[#FD9F26] shadow-lg shadow-[#FD9F26]/20">
                     <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -326,8 +325,7 @@ export function HeroSection() {
                 </div>
 
                 <div
-                  className="absolute -top-3 -right-3 mt-0 flex items-center gap-3 rounded-2xl bg-white p-4 shadow-2xl transition-transform duration-500 hover:-translate-y-1"
-                  style={{ animation: "float 7s ease-in-out infinite reverse" }}
+                  className="absolute -top-3 -right-3 mt-0 flex items-center gap-3 rounded-2xl bg-white p-4 shadow-2xl"
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#1956E3] to-[#1956E3]">
                     <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
