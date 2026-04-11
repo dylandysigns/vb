@@ -17,11 +17,13 @@ const FETCH_RETRY_ATTEMPTS = 5;
 const FETCH_RETRY_DELAY_MS = 15000;
 const IMAGE_DOWNLOAD_DELAY_MS = 1000;
 const ALLOW_STALE_INSTAGRAM_ON_FAILURE = process.env.ALLOW_STALE_INSTAGRAM_ON_FAILURE === "true";
+const LOG_PREFIX = "[instagram:refresh]";
 
 class HttpStatusError extends Error {
-  constructor(label, status) {
-    super(`${label} failed with status ${status}`);
+  constructor(label, status, message) {
+    super(message || `${label} failed with status ${status}`);
     this.name = "HttpStatusError";
+    this.label = label;
     this.status = status;
   }
 }
@@ -41,32 +43,59 @@ function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+function log(message) {
+  console.log(`${LOG_PREFIX} ${message}`);
+}
+
+function getErrorMessage(error) {
+  if (error instanceof Error) return error.message;
+  return String(error);
+}
+
 async function fetchWithRetry(url, options, label) {
   let lastError;
 
   for (let attempt = 1; attempt <= FETCH_RETRY_ATTEMPTS; attempt += 1) {
     try {
+      log(`${label}: attempt ${attempt}/${FETCH_RETRY_ATTEMPTS}`);
       const response = await fetch(url, options);
+      log(`${label}: HTTP ${response.status}`);
+
       if (!response.ok) {
+        if (label === "Instagram profile request" && [400, 401, 403].includes(response.status)) {
+          throw new HttpStatusError(
+            label,
+            response.status,
+            "Instagram token expired or invalid — please refresh the token",
+          );
+        }
+
         if (response.status === 429 && attempt < FETCH_RETRY_ATTEMPTS) {
           const retryAfterSeconds = Number(response.headers.get("retry-after"));
           const waitTime = Number.isFinite(retryAfterSeconds)
             ? retryAfterSeconds * 1000
             : FETCH_RETRY_DELAY_MS * 2 ** (attempt - 1);
-          console.warn(`${label} was rate limited (429). Retrying in ${waitTime}ms...`);
+          log(`${label} was rate limited (429). Retrying in ${waitTime}ms...`);
           await delay(waitTime);
           continue;
         }
 
         throw new HttpStatusError(label, response.status);
       }
+
+      log(`${label}: request succeeded`);
       return response;
     } catch (error) {
       lastError = error;
 
+      if (error instanceof HttpStatusError && [400, 401, 403].includes(error.status)) {
+        log(`${label}: ${error.message}`);
+        throw error;
+      }
+
       if (attempt < FETCH_RETRY_ATTEMPTS) {
         const waitTime = FETCH_RETRY_DELAY_MS * attempt;
-        console.warn(`${label} failed on attempt ${attempt}. Retrying in ${waitTime}ms...`);
+        log(`${label} failed on attempt ${attempt}: ${getErrorMessage(error)}. Retrying in ${waitTime}ms...`);
         await delay(waitTime);
       }
     }
@@ -115,11 +144,14 @@ async function fetchInstagramFeed() {
     throw new Error("Instagram profile payload did not contain timeline media");
   }
 
-  return edges
+  const posts = edges
     .map((edge) => normalizePost(edge?.node))
     .filter(Boolean)
     .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
     .slice(0, INSTAGRAM_POST_LIMIT);
+
+  log(`Instagram profile request: fetched ${posts.length} posts`);
+  return posts;
 }
 
 async function downloadImage(url, fileBaseName) {
@@ -162,6 +194,7 @@ async function main() {
   await mkdir(imageDir, { recursive: true });
 
   const currentPosts = await readCurrentFeed();
+  log(`Loaded ${currentPosts.length} cached posts from ${feedFile}`);
   const currentImageById = new Map(
     currentPosts
       .filter((post) => typeof post?.id === "string" && typeof post?.imageUrl === "string")
@@ -172,10 +205,15 @@ async function main() {
   try {
     posts = await fetchInstagramFeed();
   } catch (error) {
+    const reason = getErrorMessage(error);
+    log(`Refresh failed before writing feed: ${reason}`);
+    if (error instanceof Error && error.stack) {
+      console.log(error.stack);
+    }
+
     if (ALLOW_STALE_INSTAGRAM_ON_FAILURE && currentPosts.length > 0) {
-      console.warn(
-        `Instagram feed refresh failed (${error.message}). Keeping the existing cached feed instead.`,
-      );
+      log(`JSON file unchanged: using cached file at ${feedFile}`);
+      console.log(`⚠️ Feed unchanged: using cached data (reason: ${reason})`);
       return;
     }
 
@@ -206,6 +244,15 @@ async function main() {
     });
   }
 
+  const postsChanged = JSON.stringify(currentPosts) !== JSON.stringify(cachedPosts);
+  log(`Feed comparison: ${postsChanged ? "changes detected" : "no content changes detected"}`);
+
+  if (!postsChanged) {
+    log(`JSON file unchanged: ${feedFile}`);
+    console.log("⚠️ Feed unchanged: using cached data (reason: fetched posts match the current cache)");
+    return;
+  }
+
   await cleanupStaleImages(validFiles);
 
   const payload = {
@@ -215,10 +262,14 @@ async function main() {
   };
 
   await writeFile(feedFile, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
-  console.log(`Instagram feed refreshed for ${INSTAGRAM_USERNAME}: ${cachedPosts.length} posts`);
+  log(`JSON file written: ${feedFile}`);
+  console.log(`✅ Feed updated: ${cachedPosts.length} posts written`);
 }
 
 main().catch((error) => {
-  console.error(error);
+  log(`Fatal error: ${getErrorMessage(error)}`);
+  if (error instanceof Error && error.stack) {
+    console.log(error.stack);
+  }
   process.exitCode = 1;
 });

@@ -1,4 +1,4 @@
-import { Heart, Clock, Car, UserCheck, Smartphone, GraduationCap } from "lucide-react";
+import { Heart, Clock, Car, UserCheck, Smartphone, UserCog } from "lucide-react";
 import { ScrollReveal } from "./ScrollReveal";
 
 const heading = "'zeitung', 'Inter', sans-serif";
@@ -31,7 +31,7 @@ const benefits = [
     description: "Plan zelf je rijlessen in en bekijk je voortgang via de \"On My Way\" app. Altijd overzicht over je opleiding.",
   },
   {
-    icon: GraduationCap,
+    icon: UserCog,
     title: "Deskundige instructeurs",
     description: "Wij zijn altijd up-to-date van de laatste ontwikkelingen en bijscholingen.",
   },
