@@ -10,7 +10,7 @@ const imageDir = path.join(publicDir, "instagram-cache");
 const feedFile = path.join(publicDir, "instagram-feed.json");
 
 const INSTAGRAM_USERNAME = process.env.INSTAGRAM_USERNAME || "verkeersschoolbeckers";
-const INSTAGRAM_WEB_PROFILE_ENDPOINT = `https://www.instagram.com/api/v1/users/web_profile_info/?username=${INSTAGRAM_USERNAME}`;
+const INSTAGRAM_WEB_PROFILE_ENDPOINT = `https://i.instagram.com/api/v1/users/web_profile_info/?username=${INSTAGRAM_USERNAME}`;
 const INSTAGRAM_WEB_APP_ID = "936619743392459";
 const INSTAGRAM_POST_LIMIT = 12;
 const FETCH_RETRY_ATTEMPTS = 5;
@@ -62,14 +62,6 @@ async function fetchWithRetry(url, options, label) {
       log(`${label}: HTTP ${response.status}`);
 
       if (!response.ok) {
-        if (label === "Instagram profile request" && [400, 401, 403].includes(response.status)) {
-          throw new HttpStatusError(
-            label,
-            response.status,
-            "Instagram token expired or invalid — please refresh the token",
-          );
-        }
-
         if (response.status === 429 && attempt < FETCH_RETRY_ATTEMPTS) {
           const retryAfterSeconds = Number(response.headers.get("retry-after"));
           const waitTime = Number.isFinite(retryAfterSeconds)
@@ -87,11 +79,6 @@ async function fetchWithRetry(url, options, label) {
       return response;
     } catch (error) {
       lastError = error;
-
-      if (error instanceof HttpStatusError && [400, 401, 403].includes(error.status)) {
-        log(`${label}: ${error.message}`);
-        throw error;
-      }
 
       if (attempt < FETCH_RETRY_ATTEMPTS) {
         const waitTime = FETCH_RETRY_DELAY_MS * attempt;
@@ -131,7 +118,7 @@ function normalizePost(node) {
 async function fetchInstagramFeed() {
   const response = await fetchWithRetry(INSTAGRAM_WEB_PROFILE_ENDPOINT, {
     headers: {
-      "user-agent": "Mozilla/5.0",
+      "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
       accept: "*/*",
       "x-ig-app-id": INSTAGRAM_WEB_APP_ID,
       referer: `https://www.instagram.com/${INSTAGRAM_USERNAME}/`,
@@ -247,12 +234,6 @@ async function main() {
   const postsChanged = JSON.stringify(currentPosts) !== JSON.stringify(cachedPosts);
   log(`Feed comparison: ${postsChanged ? "changes detected" : "no content changes detected"}`);
 
-  if (!postsChanged) {
-    log(`JSON file unchanged: ${feedFile}`);
-    console.log("⚠️ Feed unchanged: using cached data (reason: fetched posts match the current cache)");
-    return;
-  }
-
   await cleanupStaleImages(validFiles);
 
   const payload = {
@@ -263,6 +244,7 @@ async function main() {
 
   await writeFile(feedFile, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
   log(`JSON file written: ${feedFile}`);
+  log(`Written ${cachedPosts.length} posts to public/instagram-feed.json`);
   console.log(`✅ Feed updated: ${cachedPosts.length} posts written`);
 }
 
