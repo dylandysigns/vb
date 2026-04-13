@@ -37,25 +37,8 @@ export function HeroSection() {
       <section
         id="home"
         className="relative overflow-hidden pt-[88px] lg:hidden"
-        style={{ background: "linear-gradient(152deg, #0b3d91 6%, #082e6e 41%, #051a44 94%)" }}
+        style={{ background: "#1956E3" }}
       >
-        <div className="absolute inset-0">
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(25, 86, 227, 1) 0%, rgba(25, 86, 227, 0.98) 22%, rgba(25, 86, 227, 0.9) 40%, rgba(12, 44, 116, 0.92) 100%)",
-            }}
-          />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(circle at center, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.03) 24%, rgba(255,255,255,0) 56%)",
-            }}
-          />
-        </div>
-
         <div className="relative mx-auto flex min-h-[calc(100vh-88px)] max-w-7xl flex-col px-4 sm:px-6">
           <div className="flex flex-1 items-start justify-center py-10 sm:py-14">
             <div className="mx-auto flex w-full max-w-[980px] flex-col items-center text-center">

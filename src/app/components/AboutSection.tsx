@@ -33,9 +33,7 @@ export function AboutSection() {
                 <img src={visualLogo} alt="Beckers beeldmerk" className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 object-contain" />
               </div>
               {/* Experience badge */}
-              <div className="absolute -bottom-6 -right-4 sm:-right-6 bg-[#1956E3] text-white rounded-2xl p-6 shadow-2xl"
-                style={{ animation: "floatCard 7s ease-in-out infinite" }}
-              >
+              <div className="absolute -bottom-6 -right-4 sm:-right-6 bg-[#1956E3] text-white rounded-2xl p-6 shadow-2xl">
                 <p className="text-3xl tracking-tight" style={{ fontFamily: heading, fontWeight: 800 }}>Sinds</p>
                 <p className="text-4xl text-[#FD9F26] tracking-tight" style={{ fontFamily: heading, fontWeight: 800 }}>2007</p>
                 <p className="text-white/70 text-sm mt-0.5" style={{ fontFamily: body, fontWeight: 400 }}>Familiebedrijf</p>
