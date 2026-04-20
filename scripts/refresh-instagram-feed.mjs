@@ -10,10 +10,11 @@ const imageDir = path.join(publicDir, "instagram-cache");
 const feedFile = path.join(publicDir, "instagram-feed.json");
 
 const INSTAGRAM_USERNAME = process.env.INSTAGRAM_USERNAME || "verkeersschoolbeckers";
-const INSTAGRAM_WEB_PROFILE_ENDPOINT = `https://i.instagram.com/api/v1/users/web_profile_info/?username=${INSTAGRAM_USERNAME}`;
-const INSTAGRAM_WEB_APP_ID = "936619743392459";
+const APIFY_TOKEN = process.env.APIFY_TOKEN?.trim() || "";
+const APIFY_INSTAGRAM_ACTOR_ID = process.env.APIFY_INSTAGRAM_ACTOR_ID || "apify/instagram-api-scraper";
+const APIFY_API_BASE_URL = "https://api.apify.com/v2";
 const INSTAGRAM_POST_LIMIT = 12;
-const FETCH_RETRY_ATTEMPTS = 5;
+const FETCH_RETRY_ATTEMPTS = 4;
 const FETCH_RETRY_DELAY_MS = 15000;
 const IMAGE_DOWNLOAD_DELAY_MS = 1000;
 const ALLOW_STALE_INSTAGRAM_ON_FAILURE = process.env.ALLOW_STALE_INSTAGRAM_ON_FAILURE === "true";
@@ -50,6 +51,18 @@ function log(message) {
 function getErrorMessage(error) {
   if (error instanceof Error) return error.message;
   return String(error);
+}
+
+function actorIdForUrl(actorId) {
+  return actorId.replace("/", "~");
+}
+
+function buildApifyEndpoint() {
+  const actorPath = actorIdForUrl(APIFY_INSTAGRAM_ACTOR_ID);
+  const endpoint = new URL(`${APIFY_API_BASE_URL}/acts/${actorPath}/run-sync-get-dataset-items`);
+  endpoint.searchParams.set("token", APIFY_TOKEN);
+  endpoint.searchParams.set("clean", "true");
+  return endpoint.toString();
 }
 
 async function fetchWithRetry(url, options, label) {
@@ -91,53 +104,99 @@ async function fetchWithRetry(url, options, label) {
   throw lastError;
 }
 
-function toIsoDate(timestamp) {
-  return new Date((timestamp || 0) * 1000).toISOString();
+function toIsoDate(value) {
+  if (!value) return new Date(0).toISOString();
+  if (typeof value === "number") return new Date(value * 1000).toISOString();
+
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) return new Date(0).toISOString();
+  return parsed.toISOString();
 }
 
-function normalizePost(node) {
-  if (!node?.id || !node?.shortcode) return null;
+function getSourceImageUrl(item) {
+  if (typeof item?.displayUrl === "string" && item.displayUrl) return item.displayUrl;
+  if (typeof item?.display_url === "string" && item.display_url) return item.display_url;
+  if (typeof item?.thumbnailUrl === "string" && item.thumbnailUrl) return item.thumbnailUrl;
+  if (typeof item?.thumbnail_src === "string" && item.thumbnail_src) return item.thumbnail_src;
+  if (Array.isArray(item?.images) && item.images.length > 0) {
+    const lastImage = item.images[item.images.length - 1];
+    if (typeof lastImage === "string" && lastImage) return lastImage;
+    if (typeof lastImage?.url === "string" && lastImage.url) return lastImage.url;
+  }
+  if (Array.isArray(item?.childPosts) && item.childPosts.length > 0) {
+    return getSourceImageUrl(item.childPosts[0]);
+  }
 
-  const imageUrl = node.display_url || node.thumbnail_src;
-  if (!imageUrl) return null;
+  return "";
+}
+
+function normalizeMediaType(item) {
+  const rawType = String(item?.type || item?.mediaType || "").toLowerCase();
+  if (rawType.includes("sidecar") || rawType.includes("carousel")) return "sidecar";
+  if (rawType.includes("video") || rawType.includes("reel")) return "video";
+  return "image";
+}
+
+function normalizePost(item) {
+  const id = item?.id ? String(item.id) : "";
+  const shortcode = item?.shortCode || item?.shortcode || "";
+  const permalink = item?.url || (shortcode ? `https://www.instagram.com/p/${shortcode}/` : "");
+  const sourceImageUrl = getSourceImageUrl(item);
+
+  if (!id || !shortcode || !permalink || !sourceImageUrl) return null;
 
   return {
-    id: node.id,
-    shortcode: node.shortcode,
-    permalink: `https://www.instagram.com/p/${node.shortcode}/`,
-    mediaType:
-      node.__typename === "GraphSidecar" ? "sidecar" : node.is_video ? "video" : "image",
-    sourceImageUrl: imageUrl,
-    caption: node.edge_media_to_caption?.edges?.[0]?.node?.text?.trim() || fallbackCaption(),
-    timestamp: toIsoDate(node.taken_at_timestamp),
-    likes: node.edge_media_preview_like?.count || node.edge_liked_by?.count || 0,
-    comments: node.edge_media_to_comment?.count || 0,
+    id,
+    shortcode,
+    permalink,
+    mediaType: normalizeMediaType(item),
+    sourceImageUrl,
+    caption: typeof item?.caption === "string" && item.caption.trim() ? item.caption.trim() : fallbackCaption(),
+    timestamp: toIsoDate(item?.timestamp || item?.takenAtTimestamp || item?.taken_at_timestamp),
+    likes: item?.likesCount || item?.likes_count || 0,
+    comments: item?.commentsCount || item?.comments_count || 0,
   };
 }
 
 async function fetchInstagramFeed() {
-  const response = await fetchWithRetry(INSTAGRAM_WEB_PROFILE_ENDPOINT, {
-    headers: {
-      "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
-      accept: "*/*",
-      "x-ig-app-id": INSTAGRAM_WEB_APP_ID,
-      referer: `https://www.instagram.com/${INSTAGRAM_USERNAME}/`,
-    },
-  }, "Instagram profile request");
-
-  const payload = await response.json();
-  const edges = payload?.data?.user?.edge_owner_to_timeline_media?.edges;
-  if (!Array.isArray(edges)) {
-    throw new Error("Instagram profile payload did not contain timeline media");
+  if (!APIFY_TOKEN) {
+    throw new Error("Missing APIFY_TOKEN — add it locally and in your GitHub Actions secrets.");
   }
 
-  const posts = edges
-    .map((edge) => normalizePost(edge?.node))
+  const endpoint = buildApifyEndpoint();
+  const input = {
+    directUrls: [`https://www.instagram.com/${INSTAGRAM_USERNAME}/`],
+    resultsType: "posts",
+    resultsLimit: INSTAGRAM_POST_LIMIT,
+    searchType: "user",
+    searchLimit: 1,
+  };
+
+  log(`Using Apify actor ${APIFY_INSTAGRAM_ACTOR_ID} for @${INSTAGRAM_USERNAME}`);
+  const response = await fetchWithRetry(endpoint, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(input),
+  }, "Apify Instagram scraper request");
+
+  const payload = await response.json();
+  if (!Array.isArray(payload)) {
+    throw new Error("Apify dataset response did not return an array of posts");
+  }
+
+  const posts = payload
+    .map((item) => normalizePost(item))
     .filter(Boolean)
     .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
     .slice(0, INSTAGRAM_POST_LIMIT);
 
-  log(`Instagram profile request: fetched ${posts.length} posts`);
+  log(`Apify Instagram scraper request: fetched ${posts.length} posts`);
+  if (posts.length === 0) {
+    throw new Error("Apify scraper returned zero Instagram posts");
+  }
+
   return posts;
 }
 
@@ -206,9 +265,10 @@ async function main() {
 
     throw error;
   }
-  const validFiles = new Set();
 
+  const validFiles = new Set();
   const cachedPosts = [];
+
   for (const post of posts) {
     let imageUrl = currentImageById.get(post.id);
 

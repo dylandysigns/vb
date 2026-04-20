@@ -32,6 +32,7 @@ jobs:
 
       - name: Refresh Instagram feed
         env:
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
           ALLOW_STALE_INSTAGRAM_ON_FAILURE: "true"
         run: npm run instagram:refresh
 

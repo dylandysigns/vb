@@ -9,21 +9,27 @@
 
   Run `npm run dev` to start the development server.
 
-  ## Instagram feed
+## Instagram feed
 
-  The Instagram section reads from a static `public/instagram-feed.json` file and local cached images in `public/instagram-cache`.
+The Instagram section reads from a static `public/instagram-feed.json` file and local cached images in `public/instagram-cache`.
 
-  Refresh the feed locally with:
+The refresh script now uses Apify's Instagram scraper, so you need an `APIFY_TOKEN` available locally and in GitHub Actions secrets.
 
-  `npm run instagram:refresh`
+Refresh the feed locally with:
 
-  Optional value for local refreshes:
+`npm run instagram:refresh`
 
-  `INSTAGRAM_USERNAME=verkeersschoolbeckers`
+Optional values for local refreshes:
 
-  If omitted, the refresh script already defaults to `verkeersschoolbeckers`.
+`APIFY_TOKEN=your_apify_token`
 
-  A GitHub Action refreshes the static feed every 24 hours and commits the updated JSON and cached images back into the repo.
+`APIFY_INSTAGRAM_ACTOR_ID=apify/instagram-api-scraper`
 
-  Instagram sometimes rate-limits GitHub runner IPs with `429`. When that happens, the workflow keeps the existing cached feed instead of failing the deployment pipeline. A local refresh from this machine is still the most reliable fallback because it uses your own network instead of GitHub's shared runner IPs.
+`INSTAGRAM_USERNAME=verkeersschoolbeckers`
+
+If omitted, the refresh script already defaults to `verkeersschoolbeckers`.
+
+A GitHub Action refreshes the static feed every 24 hours and commits the updated JSON and cached images back into the repo.
+
+If Apify is temporarily unavailable, the workflow keeps the existing cached feed instead of failing the deployment pipeline.
   
