@@ -1,8 +1,6 @@
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { ScrollReveal } from "./ScrollReveal";
-
-const heroImage =
-  "https://images.unsplash.com/photo-1630406144797-821be1f35d75?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkcml2aW5nJTIwbGVzc29uJTIwY2FyJTIwc3R1ZGVudCUyMGluc3RydWN0b3J8ZW58MXx8fHwxNzczMTc2NDc2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
+import heroImage from "../../assets/hero-beckers.jpeg";
 
 const heading = "'zeitung', 'Inter', sans-serif";
 const body = "'zeitung', 'Inter', sans-serif";
