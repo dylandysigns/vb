@@ -1,6 +1,14 @@
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { ScrollReveal } from "./ScrollReveal";
 import { BrandLogo } from "./BrandLogo";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
 
 const heading = "'zeitung', 'Inter', sans-serif";
 const body = "'zeitung', 'Inter', sans-serif";
@@ -13,6 +21,49 @@ const quickLinks = [
   { label: "Lesgebied", href: "#locaties" },
   { label: "Reviews", href: "#reviews" },
   { label: "Contact", href: "#proefles" },
+];
+
+const termsSections = [
+  {
+    title: "1. Toepassing",
+    text: "Deze algemene voorwaarden zijn van toepassing op alle rijlessen, proeflessen, adviesgesprekken en overige diensten van Verkeersschool Beckers.",
+  },
+  {
+    title: "2. Inschrijven en plannen",
+    text: "Een aanvraag via de website, telefoon of WhatsApp geldt als verzoek tot contact. Een les of proefles is pas definitief nadat deze door Verkeersschool Beckers is bevestigd.",
+  },
+  {
+    title: "3. Betaling",
+    text: "Lessen, proeflessen en pakketten dienen te worden betaald volgens de gemaakte afspraak. Verkeersschool Beckers mag een les of examenplanning uitstellen wanneer openstaande bedragen niet tijdig zijn voldaan.",
+  },
+  {
+    title: "4. Annuleren of verplaatsen",
+    text: "Een rijles of proefles kan kosteloos worden verplaatst of geannuleerd wanneer dit minimaal 48 uur van tevoren gebeurt. Bij latere annulering of het niet verschijnen mag de gereserveerde les in rekening worden gebracht.",
+  },
+  {
+    title: "5. Rijgeschiktheid en documenten",
+    text: "De leerling is zelf verantwoordelijk voor het tijdig en correct aanleveren van benodigde gegevens, zoals een geldig legitimatiebewijs en een geldige gezondheidsverklaring wanneer dat nodig is voor het examen.",
+  },
+  {
+    title: "6. Examen en tussentijdse toets",
+    text: "Een praktijkexamen of tussentijdse toets wordt pas aangevraagd wanneer instructeur en leerling samen inschatten dat de kandidaat hier klaar voor is. Kosten van externe instanties, zoals het CBR, kunnen wijzigen.",
+  },
+  {
+    title: "7. Aansprakelijkheid",
+    text: "Verkeersschool Beckers doet er alles aan om lessen veilig en zorgvuldig uit te voeren. De rijschool is niet aansprakelijk voor schade of vertraging door overmacht, verkeerssituaties, pech, ziekte of wijzigingen vanuit het CBR.",
+  },
+  {
+    title: "8. Gedrag en veiligheid",
+    text: "Van iedere leerling wordt verwacht dat hij of zij aanwijzingen van de instructeur opvolgt en zich correct gedraagt in en rondom het lesvoertuig. Bij onveilig of grensoverschrijdend gedrag kan een les direct worden beëindigd.",
+  },
+  {
+    title: "9. Privacy en communicatie",
+    text: "Persoonsgegevens worden uitsluitend gebruikt voor contact, planning en uitvoering van de dienstverlening. Door contact op te nemen via de website of telefoon geef je toestemming om hierover benaderd te worden.",
+  },
+  {
+    title: "10. Slotbepaling",
+    text: "In situaties waarin deze voorwaarden niet voorzien, beslist Verkeersschool Beckers in redelijkheid en in overleg. Op alle diensten is Nederlands recht van toepassing.",
+  },
 ];
 
 export function Footer() {
@@ -88,7 +139,7 @@ export function Footer() {
                 </li>
                 <li className="flex items-center gap-3 text-gray-500 text-sm">
                   <Mail className="w-4 h-4 text-[#FD9F26] flex-shrink-0" />
-                  <a href="mailto:info@beckers-rijschool.nl" className="hover:text-white transition-colors duration-300" style={{ fontFamily: body }}>info@beckers-rijschool.nl</a>
+                  <a href="mailto:info@verkeersschoolbeckers.nl" className="hover:text-white transition-colors duration-300" style={{ fontFamily: body }}>info@verkeersschoolbeckers.nl</a>
                 </li>
               </ul>
             </div>
@@ -122,9 +173,62 @@ export function Footer() {
             <p className="text-gray-600 text-xs" style={{ fontFamily: body }}>
               &copy; 2026 Verkeersschool Beckers. Alle rechten voorbehouden.
             </p>
-            <p className="text-gray-600 text-xs" style={{ fontFamily: body }}>
-              KVK: 89067290
-            </p>
+            <div className="flex flex-col items-center gap-2 text-center sm:flex-row sm:gap-5">
+              <p className="text-gray-600 text-xs" style={{ fontFamily: body }}>
+                KVK: 89067290
+              </p>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <button
+                    type="button"
+                    className="text-xs text-gray-500 transition-colors duration-300 hover:text-[#FD9F26]"
+                    style={{ fontFamily: body, fontWeight: 500 }}
+                  >
+                    Algemene voorwaarden
+                  </button>
+                </DialogTrigger>
+                <DialogContent className="max-h-[85vh] overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#0A0A1A] p-0 text-white shadow-2xl sm:max-w-2xl">
+                  <div className="max-h-[85vh] overflow-y-auto px-5 py-6 sm:px-8 sm:py-8">
+                    <DialogHeader className="pr-10 text-left">
+                      <DialogTitle
+                        className="text-2xl tracking-tight text-white sm:text-[2rem]"
+                        style={{ fontFamily: heading, fontWeight: 800 }}
+                      >
+                        Algemene voorwaarden
+                      </DialogTitle>
+                      <DialogDescription
+                        className="mt-2 text-sm leading-7 text-white/65 sm:text-[0.96rem]"
+                        style={{ fontFamily: body }}
+                      >
+                        Hieronder vind je de algemene voorwaarden van Verkeersschool Beckers zoals deze gelden voor proeflessen, losse rijlessen en lespakketten.
+                      </DialogDescription>
+                    </DialogHeader>
+
+                    <div className="mt-7 space-y-5">
+                      {termsSections.map((section) => (
+                        <div
+                          key={section.title}
+                          className="rounded-2xl border border-white/8 bg-white/[0.04] px-4 py-4 sm:px-5"
+                        >
+                          <h5
+                            className="text-[0.98rem] text-white"
+                            style={{ fontFamily: heading, fontWeight: 700 }}
+                          >
+                            {section.title}
+                          </h5>
+                          <p
+                            className="mt-2 text-sm leading-7 text-white/72 sm:text-[0.95rem]"
+                            style={{ fontFamily: body, fontWeight: 400 }}
+                          >
+                            {section.text}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </div>
           </div>
         </div>
       </div>
