@@ -24,7 +24,7 @@ const faqs: { question: string; answer: ReactNode }[] = [
     ),
   },
   { question: "Hoeveel rijlessen heb ik gemiddeld nodig?", answer: "Het landelijke gemiddelde ligt tussen de 40 en 45 lesuren. Dit verschilt per persoon, de een heeft meer tijd nodig dan de ander. Tijdens de proefles maken we een inschatting van het aantal lessen dat je nodig hebt." },
-  { question: "Hoe vaak kan ik per week lessen?", answer: "Je kunt bij ons 1x per week lessen. We beginnen meestal met lessen van 1 uur. Later in de rijopleiding lessen we meestal 1,5 uur." },
+  { question: "Hoe vaak kan ik per week lessen?", answer: "Je kunt bij ons 1x per week lessen. We beginnen meestal met lessen van 1 uur. Later in de rijopleiding lessen we meestal 1,5 uur. Meerdere keren in de week lessen is bij ons niet mogelijk." },
   { question: "Wat zijn jullie lestijden?", answer: "Onze lestijden zijn maandag t/m donderdag van 08:00 - 16:30 en van 18:00 - 20:00. Op vrijdag lessen we van 08:00 - 13:30." },
   { question: "Hoe vraag ik een proefles aan?", answer: "Je kunt een proefles aanvragen via het formulier op onze website, door te bellen naar Mitchell (06 38 68 71 55) of Rodney (06 34 04 20 48), of via WhatsApp. We nemen snel contact met je op om een afspraak in te plannen." },
   { question: "Wat kost een rijles bij Verkeersschool Beckers?", answer: "Een losse rijles van 60 minuten kost € 70,-. We bieden ook voordelige lespakketten aan vanaf € 2.580,-. Bekijk onze tarievenpagina voor alle prijzen." },
