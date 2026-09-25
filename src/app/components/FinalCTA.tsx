@@ -207,7 +207,7 @@ export function FinalCTA() {
               </button>
             </form>
             <p className="text-white/30 text-xs mt-4" style={{ fontFamily: body }}>
-              * De proefles kost € 60,- inclusief persoonlijk advies
+              * De proefles kost € 65,- inclusief persoonlijk advies
             </p>
           </div>
         </ScrollReveal>
